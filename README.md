@@ -1,3 +1,3 @@
 # Scripts
 
-**wikipedia_corpus** - contructing corpus with special theme through wikipedia
+**wikipedia_corpus** - constructing corpus with special theme through wikipedia
