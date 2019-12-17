@@ -5,6 +5,9 @@ from queue import Queue
 from time import sleep
 import urllib.parse
 
+"""
+if u can not access Wikipedia directly
+"""
 proxies = {'https':'https://127.0.0.1:1080',
 		   'http':'http://127.0.0.1:1080',
 			}
@@ -94,6 +97,10 @@ def output(res, output , is_split=0):
 
 
 if __name__ == '__main__':
-	res = extract(['Computers', 'Computer_science', 'Programming_languages', 'Operating_systems',\
-				'Computer_security', 'Machine_learning', 'Artificial_intelligence'], 1)
-	output(res, 'C:\\Users\\11910\\Desktop\\res.txt')
+
+	START = ['Computers', 'Computer_science']
+	LEVEL = 1
+	OUTPUT = '/path/to/output'
+
+	res = extract(START, LEVEL)
+	output(res, OUTPUT)
