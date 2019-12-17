@@ -1,7 +1,7 @@
-#WIKIPEDIA CORPUS
+# WIKIPEDIA CORPUS
 
-##MOTIVATION
+## MOTIVATION
 
 Constructing corpus with special theme through Wikipedia.
 
-##USAGE
+## USAGE
