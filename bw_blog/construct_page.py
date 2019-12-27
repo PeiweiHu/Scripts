@@ -113,7 +113,7 @@ update index according to post path
 @para:
 	path: (str)path to store posts
 """
-def index_update(path=ROOT_PATH + 'post/'):
+def index_update(path=POST_PATH):
 	if not os.path.exists(path):
 		print('[-]Error: post path ' + POST_PATH + ' not exists. (construct_page.py/index_update)')
 		return False
