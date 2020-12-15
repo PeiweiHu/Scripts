@@ -2,10 +2,20 @@
 //
 
 #include "stdafx.h"
+#include "single_instance.h"
 
 
-int _tmain(int argc, _TCHAR* argv[])
-{
-	return 0;
+int _tmain(int argc, _TCHAR* argv[]) {
+	
 }
 
+void test_single_instance() {
+	if (firstRun((LPCTSTR)"test") == 1) {
+		printf("first time\n");
+		while (1);
+	}
+	else {
+		printf("already exists");
+	}
+	return;
+}

@@ -32,5 +32,11 @@
     <ClCompile Include="windows_hack_code.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="single_instance.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="single_instance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
