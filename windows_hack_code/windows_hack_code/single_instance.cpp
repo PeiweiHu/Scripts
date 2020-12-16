@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "single_instance.h"
 
 INT firstRun(LPCTSTR name) {
 	HANDLE hMutex = NULL;

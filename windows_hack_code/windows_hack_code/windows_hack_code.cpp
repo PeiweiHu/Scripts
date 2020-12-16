@@ -1,4 +1,4 @@
-// windows_hack_code.cpp : Defines the entry point for the console application.
+﻿// windows_hack_code.cpp : Defines the entry point for the console application.
 //
 
 #include "stdafx.h"
@@ -6,14 +6,20 @@
 #include "resource.h"
 #include "free_resource.h"
 #include "inject_CreateRemoteThread.h"
+#include "run_WinExec.h"
 
 void test_free_resource();
 void test_single_instance();
 void test_SetWindowsHookEx();
 void test_CreateRemoteThread();
+void test_WinExec();
 
 int _tmain(int argc, _TCHAR* argv[]) {
-	
+}
+
+void test_WinExec() {
+	BOOL ret = run_WinExec("path/to/exe arg", SW_SHOWNORMAL);
+	printf("%d\n", ret);
 }
 
 void test_CreateRemoteThread() {

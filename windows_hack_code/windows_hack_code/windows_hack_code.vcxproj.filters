@@ -33,6 +33,9 @@
     <ClInclude Include="inject_CreateRemoteThread.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="run_WinExec.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -51,6 +54,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="inject_CreateRemoteThread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="run_WinExec.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
