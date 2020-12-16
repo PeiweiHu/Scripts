@@ -5,21 +5,23 @@
 #include "single_instance.h"
 #include "resource.h"
 #include "free_resource.h"
+#include "inject_CreateRemoteThread.h"
 
 void test_free_resource();
 void test_single_instance();
 void test_SetWindowsHookEx();
+void test_CreateRemoteThread();
 
 int _tmain(int argc, _TCHAR* argv[]) {
-	//test_SetWindowsHookEx();
-	while (1) {
-		int choice = 0;
-		printf("Plz input:");
-		scanf_s("%d", &choice);
-		printf("%d\n", choice);
-	}
+	
 }
 
+void test_CreateRemoteThread() {
+	DWORD pid = 3960;
+	INT res = inject_CreateRemoteThread(pid, "\\path\\to\\dll");
+	printf("%d\n", res);
+	return;
+}
 
 void test_SetWindowsHookEx() {
 	typedef bool(*BOOL_FUNC)();
