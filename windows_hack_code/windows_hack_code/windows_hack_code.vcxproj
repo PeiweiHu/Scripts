@@ -81,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="autorun_RegOpenKeyEx.h" />
+    <ClInclude Include="autorun_SHGetSpecialFolderPath.h" />
     <ClInclude Include="free_resource.h" />
     <ClInclude Include="inject_CreateRemoteThread.h" />
     <ClInclude Include="resource.h" />
@@ -90,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="autorun_RegOpenKeyEx.cpp" />
+    <ClCompile Include="autorun_SHGetSpecialFolderPath.cpp" />
     <ClCompile Include="free_resource.cpp" />
     <ClCompile Include="inject_CreateRemoteThread.cpp" />
     <ClCompile Include="run_WinExec.cpp" />

@@ -12,5 +12,7 @@
 
 **autorun_RegOpenKeyEx** - enable autorun after boot through changing HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run.  
 
+**autorun_SHGetSpecialFolderPath** - enable autorun after boot through adding file to start up folder.  
+
 **Note:** Since the whole project is under win32, you should find 32 bit program to inject. 
 

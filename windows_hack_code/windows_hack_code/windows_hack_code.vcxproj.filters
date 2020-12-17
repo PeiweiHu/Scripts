@@ -39,6 +39,9 @@
     <ClInclude Include="autorun_RegOpenKeyEx.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="autorun_SHGetSpecialFolderPath.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -63,6 +66,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="autorun_RegOpenKeyEx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="autorun_SHGetSpecialFolderPath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

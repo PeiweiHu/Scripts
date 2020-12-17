@@ -8,6 +8,7 @@
 #include "inject_CreateRemoteThread.h"
 #include "run_WinExec.h"
 #include "autorun_RegOpenKeyEx.h"
+#include "autorun_SHGetSpecialFolderPath.h"
 
 void test_free_resource();
 void test_single_instance();
@@ -15,13 +16,18 @@ void test_SetWindowsHookEx();
 void test_CreateRemoteThread();
 void test_WinExec();
 void test_RegOpenKeyEx();
+void test_SHGetSpecialFolderPath();
 
 int _tmain(int argc, _TCHAR* argv[]) {
 
 }
 
+void test_SHGetSpecialFolderPath() {
+	autorun_SHGetSpecialFolderPath("C:\\Users\\****\\Desktop\\run.bat", "run.bat");
+}
+
 void test_RegOpenKeyEx() {
-	INT ret = autorun_RegOpenKeyEx("C:\\Users\\***\\Desktop\\run.bat", "REG_TEST");
+	INT ret = autorun_RegOpenKeyEx("C:\\Users\\****\\Desktop\\run.bat", "REG_TEST");
 	printf("ret: %d", ret);
 }
 
