@@ -80,6 +80,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="autorun_RegOpenKeyEx.h" />
     <ClInclude Include="free_resource.h" />
     <ClInclude Include="inject_CreateRemoteThread.h" />
     <ClInclude Include="resource.h" />
@@ -88,6 +89,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="autorun_RegOpenKeyEx.cpp" />
     <ClCompile Include="free_resource.cpp" />
     <ClCompile Include="inject_CreateRemoteThread.cpp" />
     <ClCompile Include="run_WinExec.cpp" />

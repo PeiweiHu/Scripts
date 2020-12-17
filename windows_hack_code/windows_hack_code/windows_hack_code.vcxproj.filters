@@ -36,6 +36,9 @@
     <ClInclude Include="run_WinExec.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="autorun_RegOpenKeyEx.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -57,6 +60,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="run_WinExec.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="autorun_RegOpenKeyEx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
