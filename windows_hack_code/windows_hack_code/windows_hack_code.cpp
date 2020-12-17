@@ -9,6 +9,7 @@
 #include "run_WinExec.h"
 #include "autorun_RegOpenKeyEx.h"
 #include "autorun_SHGetSpecialFolderPath.h"
+#include "hide_NtQueryInfomationProcess.h"
 
 void test_free_resource();
 void test_single_instance();
@@ -17,9 +18,15 @@ void test_CreateRemoteThread();
 void test_WinExec();
 void test_RegOpenKeyEx();
 void test_SHGetSpecialFolderPath();
+void test_NtQueryInfomationProcess();
 
 int _tmain(int argc, _TCHAR* argv[]) {
+	test_NtQueryInfomationProcess();
+}
 
+void test_NtQueryInfomationProcess() {
+	INT ret = hide_NtQueryInformationProcess(2780, L"C:\\hello.exe -a 100", L"C:\\hello.exe");
+	printf("ret: %d\n", ret);
 }
 
 void test_SHGetSpecialFolderPath() {
@@ -79,15 +86,16 @@ void test_free_resource() {
 	else {
 		printf("%d\n", ret);
 	}
+	return;
 }
 
 void test_single_instance() {
-	if (firstRun((LPCTSTR)"test") == 1) {
+	/*
+	if (firstRun("test") == 1) {
 		printf("first time\n");
 		while (1);
-	}
-	else {
+	} else {
 		printf("already exists");
-	}
+	}*/
 	return;
 }

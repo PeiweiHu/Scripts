@@ -8,4 +8,4 @@
 	@param: LPCTSTR
 	@ret: 0 -> new mutex 1 -> already exist -1 -> fail to run
 */
-INT firstRun(LPCTSTR name);
+INT firstRun(char * name);

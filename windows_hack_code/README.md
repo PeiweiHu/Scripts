@@ -14,5 +14,7 @@
 
 **autorun_SHGetSpecialFolderPath** - enable autorun after boot through adding file to start up folder.  
 
+**hide_NtQueryInfomationProcess** - hide process information through change peb. (test under 64 bit, trivial effect)  
+
 **Note:** Since the whole project is under win32, you should find 32 bit program to inject. 
 
