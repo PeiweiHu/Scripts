@@ -15,7 +15,7 @@ INT inject_CreateRemoteThread(DWORD process_id, char * dll_path) {
 	// step 1
 	hProcess = ::OpenProcess(PROCESS_ALL_ACCESS, FALSE, process_id);
 	if (hProcess == NULL) {
-		return -1;
+		return ::GetLastError();
 	}
 	// step 2
 	dwSize = ::lstrlenA(dll_path) + 1;

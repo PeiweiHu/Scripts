@@ -21,7 +21,14 @@ void test_SHGetSpecialFolderPath();
 void test_NtQueryInfomationProcess();
 
 int _tmain(int argc, _TCHAR* argv[]) {
-	test_NtQueryInfomationProcess();
+	test_CreateRemoteThread();
+}
+
+void test_ZwQuerySystemInformation() {
+	/*
+		step 1. create a dll that can inline hook ZwQuerySystemInformation while being loaded
+		step 2. load this dll in target process (like Taskmgr.exe) by injecting tech
+	*/
 }
 
 void test_NtQueryInfomationProcess() {
@@ -44,9 +51,9 @@ void test_WinExec() {
 }
 
 void test_CreateRemoteThread() {
-	DWORD pid = 3960;
-	INT res = inject_CreateRemoteThread(pid, "\\path\\to\\dll");
-	printf("%d\n", res);
+	DWORD pid = 13252;
+	INT res = inject_CreateRemoteThread(pid, "C:\\Users\\****\\Desktop\\Files\\git_rep\\Scripts\\windows_hack_code\\x64\\Debug\\hide_ZwQuerySystemInformation.dll");
+	printf("createremotethread %d\n", res);
 	return;
 }
 
