@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hide_ZwQuerySystemInformation", "hide_ZwQuerySystemInformation\hide_ZwQuerySystemInformation.vcxproj", "{34844576-D8E1-4F98-9952-8A98A7CB44AC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dllhijack_WeChatWin_dll", "dllhijack_WeChatWin_dll\dllhijack_WeChatWin_dll.vcxproj", "{10EBDA38-CA15-4D26-B76A-27AB7DD571AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,9 +47,9 @@ Global
 		{A169C2D9-671F-437C-95E2-71D2997F6D50}.Release|x64.ActiveCfg = Release|Win32
 		{7ABF4C84-C32D-4452-89A0-53935BF64F8F}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{7ABF4C84-C32D-4452-89A0-53935BF64F8F}.Debug|ARM.ActiveCfg = Debug|Win32
-		{7ABF4C84-C32D-4452-89A0-53935BF64F8F}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{7ABF4C84-C32D-4452-89A0-53935BF64F8F}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{7ABF4C84-C32D-4452-89A0-53935BF64F8F}.Debug|Mixed Platforms.Deploy.0 = Debug|Win32
+		{7ABF4C84-C32D-4452-89A0-53935BF64F8F}.Debug|Mixed Platforms.ActiveCfg = Debug|x64
+		{7ABF4C84-C32D-4452-89A0-53935BF64F8F}.Debug|Mixed Platforms.Build.0 = Debug|x64
+		{7ABF4C84-C32D-4452-89A0-53935BF64F8F}.Debug|Mixed Platforms.Deploy.0 = Debug|x64
 		{7ABF4C84-C32D-4452-89A0-53935BF64F8F}.Debug|Win32.ActiveCfg = Debug|Win32
 		{7ABF4C84-C32D-4452-89A0-53935BF64F8F}.Debug|Win32.Build.0 = Debug|Win32
 		{7ABF4C84-C32D-4452-89A0-53935BF64F8F}.Debug|x64.ActiveCfg = Debug|Win32
@@ -73,6 +75,20 @@ Global
 		{34844576-D8E1-4F98-9952-8A98A7CB44AC}.Release|Win32.ActiveCfg = Release|Win32
 		{34844576-D8E1-4F98-9952-8A98A7CB44AC}.Release|Win32.Build.0 = Release|Win32
 		{34844576-D8E1-4F98-9952-8A98A7CB44AC}.Release|x64.ActiveCfg = Release|Win32
+		{10EBDA38-CA15-4D26-B76A-27AB7DD571AE}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{10EBDA38-CA15-4D26-B76A-27AB7DD571AE}.Debug|ARM.ActiveCfg = Debug|Win32
+		{10EBDA38-CA15-4D26-B76A-27AB7DD571AE}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{10EBDA38-CA15-4D26-B76A-27AB7DD571AE}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{10EBDA38-CA15-4D26-B76A-27AB7DD571AE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{10EBDA38-CA15-4D26-B76A-27AB7DD571AE}.Debug|Win32.Build.0 = Debug|Win32
+		{10EBDA38-CA15-4D26-B76A-27AB7DD571AE}.Debug|x64.ActiveCfg = Debug|Win32
+		{10EBDA38-CA15-4D26-B76A-27AB7DD571AE}.Release|Any CPU.ActiveCfg = Release|Win32
+		{10EBDA38-CA15-4D26-B76A-27AB7DD571AE}.Release|ARM.ActiveCfg = Release|Win32
+		{10EBDA38-CA15-4D26-B76A-27AB7DD571AE}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{10EBDA38-CA15-4D26-B76A-27AB7DD571AE}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{10EBDA38-CA15-4D26-B76A-27AB7DD571AE}.Release|Win32.ActiveCfg = Release|Win32
+		{10EBDA38-CA15-4D26-B76A-27AB7DD571AE}.Release|Win32.Build.0 = Release|Win32
+		{10EBDA38-CA15-4D26-B76A-27AB7DD571AE}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

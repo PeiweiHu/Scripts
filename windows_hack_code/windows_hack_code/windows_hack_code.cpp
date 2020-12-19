@@ -21,7 +21,8 @@ void test_SHGetSpecialFolderPath();
 void test_NtQueryInfomationProcess();
 
 int _tmain(int argc, _TCHAR* argv[]) {
-	test_CreateRemoteThread();
+	//test_CreateRemoteThread();
+	//test_SetWindowsHookEx();
 }
 
 void test_ZwQuerySystemInformation() {
@@ -51,8 +52,8 @@ void test_WinExec() {
 }
 
 void test_CreateRemoteThread() {
-	DWORD pid = 13252;
-	INT res = inject_CreateRemoteThread(pid, "C:\\Users\\****\\Desktop\\Files\\git_rep\\Scripts\\windows_hack_code\\x64\\Debug\\hide_ZwQuerySystemInformation.dll");
+	DWORD pid = 13192;
+	INT res = inject_CreateRemoteThread(pid, "C:\\Users\\***\\Desktop\\Files\\git_rep\\Scripts\\windows_hack_code\\x64\\Debug\\hide_ZwQuerySystemInformation.dll");
 	printf("createremotethread %d\n", res);
 	return;
 }
