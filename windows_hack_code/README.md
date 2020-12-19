@@ -22,3 +22,5 @@ If you wanna inject a 64 bit process, both dll and program who executes injectio
 
 **dllhijack_WeChatWin_dll** - hijack WeChatWin.dll under wechat directory. Change original WeChatWin.dll to WeChatWinOrg.dll, then rename this new dll with WeChatWin.dll and move it to WeChat directory.  
 
+**comm_socket_tcp** - communication between server and client. socket, tcp type.  
+

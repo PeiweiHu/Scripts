@@ -10,6 +10,8 @@
 #include "autorun_RegOpenKeyEx.h"
 #include "autorun_SHGetSpecialFolderPath.h"
 #include "hide_NtQueryInfomationProcess.h"
+#include "comm_socket_tcp.h"
+#include <iostream>
 
 void test_free_resource();
 void test_single_instance();
@@ -19,10 +21,38 @@ void test_WinExec();
 void test_RegOpenKeyEx();
 void test_SHGetSpecialFolderPath();
 void test_NtQueryInfomationProcess();
+void test_comm_socket_tcp(char * t);
 
-int _tmain(int argc, _TCHAR* argv[]) {
+
+int main(int argc, char * argv[]) {
 	//test_CreateRemoteThread();
 	//test_SetWindowsHookEx();
+	if (argc == 2) {
+		test_comm_socket_tcp(argv[1]);
+	} else {
+		printf("wrong argc\n");
+	}
+}
+
+void test_comm_socket_tcp(char * t) {
+	printf("%s\n", t);
+	if (strcmp(t, "server") == 0) {
+		ServerInit("127.0.0.1", 66666);
+		char buf[MAX_PATH] = { 0 };
+		while (TRUE) {
+			gets_s(buf);
+			SendMsg(buf);
+		}
+	} else if (strcmp(t, "client") == 0) {
+		ClientInit("127.0.0.1", 66666);
+		char buf[MAX_PATH] = { 0 };
+		while (TRUE) {
+			gets_s(buf);
+			ClientSendMsg(buf);
+		}
+	} else {
+		printf("Wrong type\n");
+	}
 }
 
 void test_ZwQuerySystemInformation() {
