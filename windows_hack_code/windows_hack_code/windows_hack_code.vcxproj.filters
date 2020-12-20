@@ -48,6 +48,12 @@
     <ClInclude Include="comm_socket_tcp.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="comm_http.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="enum_process_CreateToolhelp32Snapshot.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -81,6 +87,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="comm_socket_tcp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="comm_http.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="enum_process_CreateToolhelp32Snapshot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

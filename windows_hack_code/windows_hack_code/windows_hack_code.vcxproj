@@ -28,7 +28,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120_xp</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
     <UseOfMfc>Static</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -146,7 +146,9 @@
   <ItemGroup>
     <ClInclude Include="autorun_RegOpenKeyEx.h" />
     <ClInclude Include="autorun_SHGetSpecialFolderPath.h" />
+    <ClInclude Include="comm_http.h" />
     <ClInclude Include="comm_socket_tcp.h" />
+    <ClInclude Include="enum_process_CreateToolhelp32Snapshot.h" />
     <ClInclude Include="free_resource.h" />
     <ClInclude Include="hide_NtQueryInfomationProcess.h" />
     <ClInclude Include="inject_CreateRemoteThread.h" />
@@ -158,7 +160,9 @@
   <ItemGroup>
     <ClCompile Include="autorun_RegOpenKeyEx.cpp" />
     <ClCompile Include="autorun_SHGetSpecialFolderPath.cpp" />
+    <ClCompile Include="comm_http.cpp" />
     <ClCompile Include="comm_socket_tcp.cpp" />
+    <ClCompile Include="enum_process_CreateToolhelp32Snapshot.cpp" />
     <ClCompile Include="free_resource.cpp" />
     <ClCompile Include="hide_NtQueryInfomationProcess.cpp" />
     <ClCompile Include="inject_CreateRemoteThread.cpp" />

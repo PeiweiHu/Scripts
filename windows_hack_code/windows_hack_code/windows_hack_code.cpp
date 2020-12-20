@@ -11,6 +11,8 @@
 #include "autorun_SHGetSpecialFolderPath.h"
 #include "hide_NtQueryInfomationProcess.h"
 #include "comm_socket_tcp.h"
+#include "enum_process_CreateToolhelp32Snapshot.h"
+
 #include <iostream>
 
 void test_free_resource();
@@ -22,16 +24,16 @@ void test_RegOpenKeyEx();
 void test_SHGetSpecialFolderPath();
 void test_NtQueryInfomationProcess();
 void test_comm_socket_tcp(char * t);
+void test_enum_process();
 
 
 int main(int argc, char * argv[]) {
-	//test_CreateRemoteThread();
-	//test_SetWindowsHookEx();
-	if (argc == 2) {
-		test_comm_socket_tcp(argv[1]);
-	} else {
-		printf("wrong argc\n");
-	}
+	test_enum_process();
+	return 1;
+}
+
+void test_enum_process() {
+	EnumProcess();
 }
 
 void test_comm_socket_tcp(char * t) {
