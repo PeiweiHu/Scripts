@@ -12,6 +12,7 @@
 #include "hide_NtQueryInfomationProcess.h"
 #include "comm_socket_tcp.h"
 #include "enum_process_CreateToolhelp32Snapshot.h"
+#include "enum_file_FindFirstFile.h"
 
 #include <iostream>
 
@@ -25,11 +26,15 @@ void test_SHGetSpecialFolderPath();
 void test_NtQueryInfomationProcess();
 void test_comm_socket_tcp(char * t);
 void test_enum_process();
+void test_enum_file_FindFirstFile(char *);
 
 
 int main(int argc, char * argv[]) {
-	test_enum_process();
 	return 1;
+}
+
+void test_enum_file_FindFirstFile(char * path) {
+	SearchFile(path);
 }
 
 void test_enum_process() {

@@ -148,6 +148,7 @@
     <ClInclude Include="autorun_SHGetSpecialFolderPath.h" />
     <ClInclude Include="comm_http.h" />
     <ClInclude Include="comm_socket_tcp.h" />
+    <ClInclude Include="enum_file_FindFirstFile.h" />
     <ClInclude Include="enum_process_CreateToolhelp32Snapshot.h" />
     <ClInclude Include="free_resource.h" />
     <ClInclude Include="hide_NtQueryInfomationProcess.h" />
@@ -162,6 +163,7 @@
     <ClCompile Include="autorun_SHGetSpecialFolderPath.cpp" />
     <ClCompile Include="comm_http.cpp" />
     <ClCompile Include="comm_socket_tcp.cpp" />
+    <ClCompile Include="enum_file_FindFirstFile.cpp" />
     <ClCompile Include="enum_process_CreateToolhelp32Snapshot.cpp" />
     <ClCompile Include="free_resource.cpp" />
     <ClCompile Include="hide_NtQueryInfomationProcess.cpp" />

@@ -24,5 +24,7 @@ If you wanna inject a 64 bit process, both dll and program who executes injectio
 
 **enum_process_CreateToolhelp32Snapshot** - list all process.  
 
+**enum_file_FindFirstFile** - list all files under target directory.  
+
 **comm_socket_tcp** - communication between server and client. socket, tcp type.  
 
