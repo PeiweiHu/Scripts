@@ -13,6 +13,7 @@
 #include "comm_socket_tcp.h"
 #include "enum_process_CreateToolhelp32Snapshot.h"
 #include "enum_file_FindFirstFile.h"
+#include "comm_http_post.h"
 
 #include <iostream>
 
@@ -27,10 +28,16 @@ void test_NtQueryInfomationProcess();
 void test_comm_socket_tcp(char * t);
 void test_enum_process();
 void test_enum_file_FindFirstFile(char *);
+void test_comm_http_post();
 
 
 int main(int argc, char * argv[]) {
+	test_comm_http_post();
 	return 1;
+}
+
+void test_comm_http_post() {
+	comm_http_post_test();
 }
 
 void test_enum_file_FindFirstFile(char * path) {

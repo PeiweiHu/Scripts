@@ -86,7 +86,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -146,7 +146,7 @@
   <ItemGroup>
     <ClInclude Include="autorun_RegOpenKeyEx.h" />
     <ClInclude Include="autorun_SHGetSpecialFolderPath.h" />
-    <ClInclude Include="comm_http.h" />
+    <ClInclude Include="comm_http_post.h" />
     <ClInclude Include="comm_socket_tcp.h" />
     <ClInclude Include="enum_file_FindFirstFile.h" />
     <ClInclude Include="enum_process_CreateToolhelp32Snapshot.h" />
@@ -161,7 +161,7 @@
   <ItemGroup>
     <ClCompile Include="autorun_RegOpenKeyEx.cpp" />
     <ClCompile Include="autorun_SHGetSpecialFolderPath.cpp" />
-    <ClCompile Include="comm_http.cpp" />
+    <ClCompile Include="comm_http_post.cpp" />
     <ClCompile Include="comm_socket_tcp.cpp" />
     <ClCompile Include="enum_file_FindFirstFile.cpp" />
     <ClCompile Include="enum_process_CreateToolhelp32Snapshot.cpp" />
