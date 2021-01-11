@@ -146,6 +146,7 @@
   <ItemGroup>
     <ClInclude Include="autorun_RegOpenKeyEx.h" />
     <ClInclude Include="autorun_SHGetSpecialFolderPath.h" />
+    <ClInclude Include="comm_http_get.h" />
     <ClInclude Include="comm_http_post.h" />
     <ClInclude Include="comm_socket_tcp.h" />
     <ClInclude Include="enum_file_FindFirstFile.h" />
@@ -161,6 +162,7 @@
   <ItemGroup>
     <ClCompile Include="autorun_RegOpenKeyEx.cpp" />
     <ClCompile Include="autorun_SHGetSpecialFolderPath.cpp" />
+    <ClCompile Include="comm_http_get.cpp" />
     <ClCompile Include="comm_http_post.cpp" />
     <ClCompile Include="comm_socket_tcp.cpp" />
     <ClCompile Include="enum_file_FindFirstFile.cpp" />

@@ -95,8 +95,8 @@ int comm_http_post_test()
 
 	while (rec = recv(sock, puffer, 2048, 0))
 	{
-		//if (rec == 0)
-			//error_exit("Server quit");
+		if (rec == 0)
+			error_exit("Server quit");
 
 		printf("%s", puffer);
 	}
