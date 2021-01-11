@@ -33,3 +33,7 @@ If you wanna inject a 64 bit process, both dll and program who executes injectio
 **comm_http_post** - communication between server and client by http POST request. 
 
 **screenshot** - get screenshot. 
+
+**selfdel_MoveFileEx** - delete file through api MoveFileEx. NOTE: 1. run under administrator privilege 2. can only delete after **REBOOT**, not shutdown or anything else. 
+
+**selfdel_bat** - delete file through bat. 

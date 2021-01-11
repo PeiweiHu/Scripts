@@ -17,6 +17,8 @@
 #include "comm_http_get.h"
 #include "screenshot.h"
 #include "pipecmd.h"
+#include "selfdel_MoveFileEx.h"
+#include "selfdel_bat.h"
 
 #include <iostream>
 
@@ -35,11 +37,34 @@ void test_comm_http_post();
 void test_comm_http_get();
 void test_screenshot();
 void test_pipecmd();
+void test_selfdel_MoveFileEx();
+void test_selfdel_bat();
 
 
 int main(int argc, char * argv[]) {
-	test_pipecmd();
+	test_selfdel_bat();
 	return 1;
+}
+
+void test_selfdel_bat() {
+	// 程序自删除
+	BOOL bRet = DelSelf();
+	if (bRet == FALSE)
+	{
+		printf("Selft Delete Error!\n");
+	}
+	else
+	{
+		printf("Selft Delete OK!\n");
+	}
+
+	system("pause");
+}
+
+void test_selfdel_MoveFileEx() {
+	if (!selfdel_move("C:\\Users\\hpw\\Desktop\\1.txt")) {
+		printf("wrong\n");
+	}
 }
 
 void test_pipecmd() {

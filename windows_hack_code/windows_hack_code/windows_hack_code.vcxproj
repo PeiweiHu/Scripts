@@ -158,6 +158,8 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="run_WinExec.h" />
     <ClInclude Include="screenshot.h" />
+    <ClInclude Include="selfdel_bat.h" />
+    <ClInclude Include="selfdel_MoveFileEx.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -175,6 +177,8 @@
     <ClCompile Include="pipecmd.cpp" />
     <ClCompile Include="run_WinExec.cpp" />
     <ClCompile Include="screenshot.cpp" />
+    <ClCompile Include="selfdel_bat.cpp" />
+    <ClCompile Include="selfdel_MoveFileEx.cpp" />
     <ClCompile Include="single_instance.cpp" />
     <ClCompile Include="single_instance.h" />
     <ClCompile Include="stdafx.cpp">
