@@ -15,6 +15,7 @@
 #include "enum_file_FindFirstFile.h"
 #include "comm_http_post.h"
 #include "comm_http_get.h"
+#include "screenshot.h"
 
 #include <iostream>
 
@@ -31,11 +32,16 @@ void test_enum_process();
 void test_enum_file_FindFirstFile(char *);
 void test_comm_http_post();
 void test_comm_http_get();
+void test_screenshot();
 
 
 int main(int argc, char * argv[]) {
-	test_comm_http_get();
+	test_screenshot();
 	return 1;
+}
+
+void test_screenshot() {
+	screenshot();
 }
 
 void test_comm_http_get() {

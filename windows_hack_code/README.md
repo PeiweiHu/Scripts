@@ -31,3 +31,5 @@ If you wanna inject a 64 bit process, both dll and program who executes injectio
 **comm_http_get** - communication between server and client by http GET request. 
 
 **comm_http_post** - communication between server and client by http POST request. 
+
+**screenshot** - get screenshot. 
