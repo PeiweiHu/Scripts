@@ -16,6 +16,7 @@
 #include "comm_http_post.h"
 #include "comm_http_get.h"
 #include "screenshot.h"
+#include "pipecmd.h"
 
 #include <iostream>
 
@@ -33,11 +34,31 @@ void test_enum_file_FindFirstFile(char *);
 void test_comm_http_post();
 void test_comm_http_get();
 void test_screenshot();
+void test_pipecmd();
 
 
 int main(int argc, char * argv[]) {
-	test_screenshot();
+	test_pipecmd();
 	return 1;
+}
+
+void test_pipecmd() {
+	char szCmd[] = "ping 127.0.0.1";
+	char szResultBuffer[512] = { 0 };
+	DWORD dwResultBufferSize = 512;
+
+	// 执行 cmd 命令, 并获取执行结果数据
+	if (FALSE == PipeCmd(szCmd, szResultBuffer, dwResultBufferSize))
+	{
+		printf("pipe cmd error.\n");
+	}
+	else
+	{
+		printf("CMD执行结果为:\n%s\n", szResultBuffer);
+	}
+
+	system("pause");
+	return;
 }
 
 void test_screenshot() {

