@@ -2,21 +2,25 @@
 
 [TOC]
 
-
-
 # git-related vulnerability discover
 
-## A Practical Approach to the Automatic Classification of Security-Relevant Commits
+## A Practical Approach to the Automatic Classification of Security-Relevant Commits (ICSME18, CCF-B)
 
 本文为了解决软件供应链中开源软件漏洞出现后修补不及时的问题，提出了实时监控软件的commit信息并通过模型自动判断此commit是否安全相关来提示开发人员进行及时的修补。模型提取了commit的代码信息与日志信息，将代码当做自然语言文档进行分类处理。
 
-## VCCFinder: Finding Potential Vulnerabilities in Open-Source Projects to Assist Code Audits
+## VCCFinder: Finding Potential Vulnerabilities in Open-Source Projects to Assist Code Audits (CCS15)
 
 本文为了解决对commit代码的审计问题。使用传统的代码分析工具往往要一次分析整个项目，且误报率很高。本文建立了一个数据库，内含CVE漏洞和造成该漏洞的commit的映射。本文同时分析代码和github上能够获取的元信息（metadata，包含的很广泛），然后训练模型（we first create a joint representation for the heterogeneous features using a generalized bag-ofwords model and then apply a linear Support Vector Machine ）并实现对commit的安全性预测。
 
-## Automated Identification of Security Issues from Commit Messages and Bug Reports
+## Automated Identification of Security Issues from Commit Messages and Bug Reports (ESEC/FSE17, CCF-A)
 
-本文和VCCFinder要处理的问题一样。同样的，本文也构建了一个数据库—基于来自github的commit、bug report，来自JIRA和Bugzilla的bug report。commit采用commit message作为特征，bug report采用title, description, comments, comment number, attachment number, labels, created date, and last edited date作为特征。模型采用了k-fold stacking，就是将数据分为k份训练k轮，第k轮则采用第k份数据作为测试集，其它作为训练集；并且SVM、随机森林等多个模型同时训练，这些模型的测试结果再输入到logistic回归进行最终预测。本文工具效果比VCCFinder好，作者声称是因为VCC-Finder的SVM对不对称数据效果不好。
+本文和VCCFinder要处理的问题一样。同样的，本文也构建了一个数据库—基于来自github的commit、bug report，来自JIRA和Bugzilla的bug report。commit采用commit message作为特征，bug report采用title, description, comments, comment number, attachment number, labels, created date, and last edited date作为特征。模型采用了k-fold stacking，就是将数据分为k份训练k轮，第k轮则采用第k份数据作为测试集，其它作为训练集；并且SVM、随机森林等多个模型同时训练，这些模型的测试结果再输入到logistic回归进行最终预测。本文工具效果比VCCFinder好，作者声称是因为VCC-Finder的SVM对不对称数据效果不好。和VCCFinder相比改进了预测算法。
+
+## When a Patch Goes Bad: Exploring the Properties of Vulnerability-Contributing Commits (ESEM13, CCF-B)
+
+以Apache HTTP server中的68个漏洞以及与之关联的124个VCC为对象（个人感觉数据量不大），通过git记录分析得到如下结论：
+
+![](http://image.hupeiwei.com/paper/patch_bad.PNG)
 
 # fuzz
 
