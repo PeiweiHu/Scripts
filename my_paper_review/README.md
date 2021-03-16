@@ -22,6 +22,14 @@
 
 ![](http://image.hupeiwei.com/paper/patch_bad.PNG)
 
+## Understanding security mistakes developers make: Qualitative analysis from Build It, Break It, Fix It (USENIX Security 20)
+
+
+
+## VulPecker: An Automated Vulnerability Detection System Based on Code Similarity Analysis (ACSAC 16, CCF-B)
+
+由于一个库可能被很多软件使用，库中的漏洞修复了不代表使用该库的软件也修复了漏洞，更何况提供的一些修复patch可能不包含某个版本（如3.1之前都受影响，却只提供的3.1的patch）。这篇文章试图通过代码相似性算法查找出软件中存在的已爆出漏洞。总体思路是**先**根据漏洞的diff hunk（features）选取高效的代码相似性检测算法（选取过程首先要求算法超过一个准确度threshold，并能区分unpatched/patched；随后测试他们最合适的code fragment level；最后选取false-negative最小的算法），**然后**对抽取的the patched/unpatched diff code and the unpatched code fragment corresponding to a vulnerability进行预处理并转换成代码相似性算法需要的代码表示，这就生成了漏洞签名；**最后**对目标程序同样进行预处理并转换成需要的代码表示，生成目标程序的签名，然后根据代码相似性算法就行比较，找到可能的位置。
+
 # fuzz
 
 ## Evaluating Fuzz Testing (CCS18)
