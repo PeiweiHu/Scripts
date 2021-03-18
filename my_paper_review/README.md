@@ -232,3 +232,23 @@ skyfire分为学习和种子生成两个过程。在学习过程中，首先根�
 1. 对所有的API进行了统一的处理，可能有一些log类的api等，对判断是不是为恶意软件没有影响。如果增加一些区分可能获得更干净的数据集。
 2. 根据马尔可夫求得的转换概率很难真实反映运行时的路径概率。比如从某一api到try块api的概率要明显高于到catch块的概率，但是本文是根据api出现的频次进行的计算。
 3. 整个判断都基于API序列，这样是不够的。有可能恶意软件与非恶意软件的区别仅仅是一个参数不同。
+
+## Authorship Analysis Studies: A Survey (International Journal of Computer Applications, 2014)
+
+本文阐述了authorship analysis中的技术分类与发展。authorship analysis分为三个大类。authorship attribution：给定某人的一些已有文本，判断一篇新文本是否归属于该作者。authorship characterization：根据文本判定作者的社会属性，如性别、受教育程度等。similarity detection：判断一些文本是否归属同一作者。
+
+**STYLOMETRIC 特征：**
+
+词法的特征（lexical features）：根据不同的划分粒度有不同的属性，如按token划分时每个token的长度，句子的长度等。按character划分时字母计数、字母频率、数字计数、标点符号计数等。或者是考虑词汇的丰富程度、词汇出错的特点等。
+
+句法的特征（syntactic features）：研究用来组成句子的凭借：标点和功能性词语（function words，如冠词、介词、代词等）。
+
+结构的特征（structural features）：研究作者如何组织文档的结构，如文档段落之间的结构和段落内句子间的结构。
+
+特定内容的特征（content-specific features）：研究文档主题相关的一些关键词汇。
+
+![](http://image.hupeiwei.com/paper/authorship.PNG)
+
+![](http://image.hupeiwei.com/paper/authorship1.PNG)
+
+剩下的部分说了authorship detection tech，好像是在讲三个问题中的第一个，但是和之前命名不太统一。在解决该问题时，一种方法是把训练集中同一作者的所有文本拼接在一起（不过这样就忽略了这些文本间的差异），然后使用概率模型或压缩模型比对测试集和训练集中各作者文本的差异。还有一种方法是使用机器学习分类器、聚类算法、文本间距离等将训练集中同一作者多个文本划分成不同的集合，代表不同的风格，然后将测试集中文本进行归类。
