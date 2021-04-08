@@ -193,6 +193,14 @@ skyfire分为学习和种子生成两个过程。在学习过程中，首先根�
 
 注2：覆盖率相关部分与AFL类似，故文章没有详述。
 
+## FIRM-AFL: High-Throughput Greybox Fuzzing of IoT Firmware via Augmented Process Emulation (USENIX Security 19)
+
+这篇文章是第一个针对IoT程序的灰盒fuzzer，试图解决对IoT进行fuzz时的兼容性与效率的问题。具体方式是通过结合QEMU的user-mode和system-mode，大部分时间在user-mode下运行（效率高）；当遇到系统调用时，切换到system-mode运行（兼容性考虑），执行后再将CPU state传回user-mode继续运行。
+
+为了减少内存转换的损失，两种模式的内存通过一个RAM file共享。为了减少系统调用转换到system-mode的损失，将固件文件系统挂载到宿主机使得user-mode可以直接获得，这样文件相关的系统调用在user-mode下就可以处理了。还有一些preload page（防止fork出来的子进程频繁缺页）、lightweight snapshot的优化。
+
+pros - 第一个IoT的灰盒fuzzer，结合QEMU的user-mode和system-mode来平衡兼容性和效率。cons - 非文件相关的syscall redirection影响很大，作者实验中只用了一个程序来表现这一点；AFL不是为IoT程序设计的，也许可以增加一些针对性设计。
+
 # others
 
 ## DEEPVSA: Facilitating Value-set Analysis with Deep Learning for Postmortem Program Analysis (USENIX Security 19)
