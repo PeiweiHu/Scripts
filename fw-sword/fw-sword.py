@@ -34,6 +34,8 @@ def find_web_sub(path):
                 php_lst.append(os.path.join(root, _f).strip('/'))
                 #print('add', os.path.join(root, _f))
     php_lst = [_p.split('/') for _p in php_lst]
+    if len(php_lst) == 0:
+        return 'Not found'
     php_ele = random.choice(php_lst)
     #print(php_ele)
     dir_cnt = 0
@@ -216,7 +218,7 @@ def record_md5(img_path, bin_id):
         with open(os.path.join(BIN_MD5_SAVE, bin_id + '_sbin'), 'w') as w:
             w.write(json.dumps(sbin_dict))
     # remove extraced fs
-    os.sysetem('rm -r ' + extracted_dir)
+    os.system('rm -r ' + extracted_dir)
 
 
 def controller(bin_path, bin_id, out_file='tmp_out.html'):
@@ -233,7 +235,7 @@ def controller(bin_path, bin_id, out_file='tmp_out.html'):
     if os_rtn != 0:
         print('[-]Error while run binwalk')
         return
-    extracted_dir = [_d for _d in os.listdir(work_dir) if not _d in dir_content][0].rstrip('/')
+    extracted_dir = [_d for _d in os.listdir(work_dir) if not _d in dir_content and (not _d.endswith('.html'))][0].rstrip('/')
     os.system('mv ./{0} {1}/'.format(extracted_dir, EXT_SAVE))
     extracted_dir = os.path.join(EXT_SAVE, extracted_dir)
     # detect web directory
@@ -310,20 +312,27 @@ def controller(bin_path, bin_id, out_file='tmp_out.html'):
 
 
 if __name__ == '__main__':
-    if sys.argv[1] = 'analyse':
+    if len(sys.argv) < 2:
+        print("Help:")
+        print("Scan target firmware: python3 fw-sword.py analyse [bin_file] [bin_id] [out_pdf]")
+        print("e.g. python3 fw-sword.py analyse ../DWP2360b-firmware-v210-rc020.bin dwp2360b-v210-rc020 ./result.pdf")
+        exit()
+    if sys.argv[1] == 'analyse':
         bin_file = sys.argv[2]
         bin_id = sys.argv[3]
         out = sys.argv[4]
         if not os.path.exists(bin_file):
             print('File {0} does not exist. exit.'.format(bin_file))
             exit()
-        # clean existing tmp file
-        os.system('rm tmp_out.html')
         # work
         controller(bin_file, bin_id, out_file='tmp_out.html')
         # change to pdf
         pdfkit.from_file('tmp_out.html', out.rstrip('.pdf') + '.pdf')
-    elif sys.argv[1] == 'record'
+        # clean existing tmp file
+        os.system('rm tmp_out.html')
+        os.system('rm -r ./ext/*')
+        os.system('rm out.txt')
+    elif sys.argv[1] == 'record':
         bin_file = sys.argv[2]
         bin_id = sys.argv[3]
         if os.path.exists(os.path.join(BIN_MD5_SAVE, bin_id+'_bin')) or os.path.exists(os.path.join(BIN_MD5_SAVE, bin_id+'_sbin')):
@@ -333,7 +342,8 @@ if __name__ == '__main__':
     else:
         print("Help:")
         print("Scan target firmware: python3 fw-sword.py analyse [bin_file] [bin_id] [out_pdf]")
-        print("e.g. python3 fw-sword.py analyse ./testcase/DWP2360b-firmware-v210-rc020.bin dwp2360b-v210-rc020 ./result.pdf")
+        print("e.g. python3 fw-sword.py analyse ../DWP2360b-firmware-v210-rc020.bin dwp2360b-v210-rc020 ./result.pdf")
+        print("WARN: Do not put target *.bin file within project directory")
         
 
 

@@ -21,6 +21,7 @@ First cd into root directory of this repo, then do as following.
 ## 2. Install firmwalker
 
 1. git clone https://github.com/craigz28/firmwalker.git
+2. cd into firmwalker and run 'shodan init <API_KEY>'
 
 ## 3. Install pdfkit
 
