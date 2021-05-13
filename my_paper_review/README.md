@@ -2,6 +2,59 @@
 
 [TOC]
 
+# 100-papers-in-50-days plan
+
+本计划开始于2021年5月13日，计划在50天内读完100篇安全相关的论文，目的是对安全领域的各研究方向有一个大致的了解，也就是看看大家都在干什么。对于每篇论文本身不求甚解。
+
+## 1. Reassembleable Disassembling (USENIX Secutiry 15) - 2021/05/13
+
+这篇论文的研究主题很有意思，就是如何把从commercial-off-the-shelf (COTS) binaries with most symbol and relocation information stripped反汇编得到的汇编指令改的可以再次汇编回去，这样大家以后补丁软件就可以直接修改反汇编出的汇编文件了，而不是改二进制、额外增加段。不过提出的方法不太优雅。
+
+![](http://image.hupeiwei.com/paper/reassemble.PNG)
+
+整体架构如图所示，分为两大模块，Disassembly Module和Analysis Module。反汇编模块采用objdump进行反汇编，其中Disassembly Validator的作用是检查objdump是否报错，有错误就假设是data gap导致的，判断data界限并重新反汇编。反汇编后的结果包括Data、Meta-Data（PLT和导出表）、Code。
+
+![](http://image.hupeiwei.com/paper/symbol-lifting.PNG)
+
+Analysis Module里面最重要的是Symbol Lifting过程，这个过程处理上图所示的四种符号引用。为了简化处理，提出了一系列的假设。我看的时候随手记了些，不全：
+
+> 两种立即数：指令操作符中的常量、数据段中的字节流
+>
+> 超出地址空间的不会是符号的引用
+>
+> 引用应该指向代码段或者数据段、且指向代码段的位置应该是一些指令的起始地址（识别出了c2c c2d）
+> ----接下来处理数据段（d2c d2d），思路是把它切片
+> A1 - 所有存储在数据段的引用是n字节对齐的，n=4 for 32 bit and n = 8 for 64 bit
+> A2 - 用户不需要修改原始二进制数据。如果这个假设成立，可以不改变数据段的起始地址，这样整体的数据段地址不变，就不需要对d2d进行符号化。
+> A3 - d2c符号引用只包含对函数指针和跳转表项的引用
+>
+> ......
+
+我个人感觉论文里面比较重要的就是Symbol lifting过程，以及提出的几个假设。假设与实验程序的契合程度直接影响了效果。我没有仔细看论文，也不能提出建设性的意见与问题。论文给我的直觉是主题很有意思，但是通过规则的问题解决方式很容易被defense，COTS略施小计可能效果就不行了。但是作为这一个问题的第一个解决方案，毕竟给出了可行的方法。
+
+## 2. Automatic Firmware Emulation through Invalidity-guided Knowledge Inference (USENIX Security 21) - 2021/05/13
+
+这篇文章针对的是固件运行时周边设备的兼容问题。对IoT设备固件进行动态测试时，因为执行测试的设备往往不具备IoT设备具备的周边设备，因此会遇到兼容性问题。现在有三个方向在发展，一是把相关请求转发到真实硬件，一是模拟Linux内核的硬件抽象层，一是全系统模拟，对未知周边设备建立交互模型，来为固件中对周边设备的请求提供响应。本文属于最后一种路线。作者认为现有第三种路线的工作提供响应时忽视了不同周边设备寄存器的共同作用。如：
+
+```c
+if (EMAC->CR & EMAC->SR == 0x1E7FF)
+Enable_Ethernet_Interrupt();
+```
+
+CR寄存器和SR寄存器共同影响了运行。
+
+作者提出的方法包括两个阶段，一是知识抽取阶段（Knowledge Extraction Phase），一是动态分析阶段（Dynamic Analysis Phase）。我感觉重点是第一个阶段。知识抽取阶段将对周边设备的访问设置为符号，通过符号执行来探索各路径，然后记录为了保持运行状态有效周边设备的响应值。第二阶段运行至某一需要访问周边设备值的位置时，询问第一阶段的保存值，给出周边设备的响应结果。
+
+第一阶段设备响应值保存的级别有4种。T0是读设备寄存器值时返回该设备寄存器最近被写入的值。T1通过pc值和访问的设备寄存器的地址来查询返回响应值，保存格式类似T1_addr_pc_NULL_value，T1_0x40023800_0x10000_NULL_0x00代表PC为0x10000时访问了0x40023800（设备寄存器的地址）的话，这个设备响应值0x00。T2是T1加上上下文哈希，保存格式如T2_addr_pc_contextHash_value。T3是T1加上符号执行运行成功时的多个响应值（不只有一个响应值），保存格式如T3_addr_pc_null_{v1,v2,...}。它们每个有各自的道理，论文中有详细介绍。
+
+第一阶段运行示意如下图：
+
+![](http://image.hupeiwei.com/paper/afe.PNG)
+
+本文提出的方式基于符号执行，符号执行有两个固有的问题，路径爆炸与约束求解。作者说运行状态无效时直接终止该路径的继续运行，因此缓解了路径爆炸问题；但是约束求解问题依然存在（我粗略看，没有看到作者介绍缓解措施）。
+
+之前看过一个FirmAFL，提出了一个增强进程仿真（augmented process emulation）代替QEMU的全系统模拟。那个相当于是对QEMU仿真固件的改进，挖洞效果是用增强进程仿真替代AFL中的QEMU用户模式，和本文的优化层次不太一样。
+
 # git-related vulnerability discover
 
 ## A Practical Approach to the Automatic Classification of Security-Relevant Commits (ICSME18, CCF-B)
