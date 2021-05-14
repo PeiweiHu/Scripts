@@ -55,6 +55,26 @@ CR寄存器和SR寄存器共同影响了运行。
 
 之前看过一个FirmAFL，提出了一个增强进程仿真（augmented process emulation）代替QEMU的全系统模拟。那个相当于是对QEMU仿真固件的改进，挖洞效果是用增强进程仿真替代AFL中的QEMU用户模式，和本文的优化层次不太一样。
 
+## 3. Black Widow: Blackbox Data-driven Web Scanning (S&P 21) - 2021/05/14
+
+这是一篇Web Scanner相关的论文，感觉Web安全（至少这篇）和系统安全相比，工作难度确实低一些。作者认为之前的工作聚焦在解决问题的一部分（有的只是JavaScript事件，有的只是程序状态），并且缺少对状态之间依赖关系的考虑。
+
+作者的解决方案包括三个部分：edge-driven navigation with path-augmentation, complex workflow traversal, and fine-grained inter-state dependency tracking。其中第一部分旨在如何获得更多的程序状态，第二部分是如何复现（到达）某一个已知状态，第三部分是如何发现不同状态间的依赖关系。
+
+其实这几个算法图就把流程说的很详细了：
+
+![](http://image.hupeiwei.com/paper/web-alg1.PNG)
+
+![](http://image.hupeiwei.com/paper/web-alg2.PNG)
+
+![](http://image.hupeiwei.com/paper/web-alg3.PNG)
+
+navigation中一个节点就是一个状态，状态包括页面的状态（即页面的URL）和JavaScript的状态（即触发了哪些事件）。navigation中的边包括一个节点和一个动作（GET requests, form submission, iframes and JavaScript events），意味着当前状态经过该动作转向下一个状态。
+
+先看算法2，它的作用是通过向前找到一个safe的边构建从该safe边到当前位置的workflow，目的是找到能够到达某状态的路径（或者说workflow）。所谓safe的边是指当前边中的action是一个GET操作。为什么GET是safe的，要从GET开始一个workflow呢？我觉得是因为GET操作足够简单，不包含过于复杂的信息，且它往往是业务操作的开始；因此从GET操作开始到目的状态的路径中应该包含了所需的信息。算法3也很简单，一个是判断某边包含的节点状态是否有token，如果有则添加token来源到该状态的依赖关系。另一个是搜索节点参数并添加token的。算法3用于判断状态间依赖关系。算法1简单明了，更不用说了。
+
+这篇文章不断强调XSS的问题，因为判断依赖关系有利于发现XSS。
+
 # git-related vulnerability discover
 
 ## A Practical Approach to the Automatic Classification of Security-Relevant Commits (ICSME18, CCF-B)
