@@ -75,6 +75,14 @@ navigation中一个节点就是一个状态，状态包括页面的状态（即�
 
 这篇文章不断强调XSS的问题，因为判断依赖关系有利于发现XSS。
 
+## 4. BAP: A Binary Analysis Platform (International Conference on Computer Aided Verification 2011) - 2021/05/14
+
+这个文章不是一个典型的顶会论文，比较简短，就当是了解了解二进制分析平台的架构了。
+
+本篇文章介绍的BAP是作者团队开发的第三代二进制分析平台。第一代的方式是将汇编反编译成C语言，然后进行接下来的分析。这样的缺点是很多汇编里面的side-effect不能体现出来。所谓的side-effect，例如执行完指令一些标志位的变化，它们可能影响跳转是否执行。第二代的增加了中间语言，并且side-effect蕴含在了中间语言里。但是这一代的中间语言本身语义不明确，且对ARM的支持不好。第三代，也就是BAP，吸取了之前两代的经验，主要目标有：1. 将side-effect明确表示出来 2. 使用简单的具有良好语义的中间语言 3. 包含对二进制程序的分析和验证技术 4. 运行用户自定义分析。
+
+![](http://image.hupeiwei.com/paper/BAP.PNG)
+
 # git-related vulnerability discover
 
 ## A Practical Approach to the Automatic Classification of Security-Relevant Commits (ICSME18, CCF-B)
