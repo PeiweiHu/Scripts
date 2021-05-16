@@ -83,6 +83,18 @@ navigation中一个节点就是一个状态，状态包括页面的状态（即�
 
 ![](http://image.hupeiwei.com/paper/BAP.PNG)
 
+## 5. Ramblr: Making Reassembly Great Again (NDSS 17) - 2021/05/16
+
+这篇文章是接着Uroboros做的，获得了2017年NDSS的distinguished paper award。
+
+*Reassembleable Disassembling*里面有很多假设和粗糙的推测，比如对于反汇编代码中的立即数，如果在内存区域内，就当做是符号引用，否则当成一个常量。这篇文章主要改善这一个点-**不能正确区分一个立即数是常量还是符号引用**，使用程序分析的方法（Intra-function Data Dependence Analysis 和 Localized Value-set Analysis）替代原来粗糙的推测。
+
+作者提出的方法中重点步骤是Content Classification和Symbolization。其中Content Classification就是使用上面提到的两种程序分析方法恢复数据类型，具体的步骤我也没太看懂，感觉介绍也不很详细。Symbolization主要介绍了两点，一是 Base Pointer Reattribution。这个应对的情况包括由于常量折叠优化，counters[input - 'A'] ++这种语句，假设counters起始地址为0x804a034，正常的取要++的值的方式是（0x804a034 + (ebx - 'A')\*4），优化后'A'\*4的值提前计算了，于是汇编变成了（0x8049f30+ebx*4）这样。但是0x8049f30可能不包括在内存区域内，导致被识别为常量。措施是以4KB增加内存区域看看能不能落在里面，如果可以，进行前向切片直至一个和该值相关的解引用操作，通过值集分析看看访问了哪个内存区域，这个应该就是优化前的base pointer。二是Data Consumer Check，其实就是一个保障性措施，对于没有符号化的立即数，看它是否涉及了一个不包含其它符号引用的指针或跳转操作；对于符号化的引用，看看有没有什么不寻常的操作。由于上面的分析heavyweight，还提出了一个快速的方法，在Fast Workarounds一节。
+
+我对程序分析方法还不够了解，多看看相关的论文，比如值集分析和程序切片的。
+
+
+
 # git-related vulnerability discover
 
 ## A Practical Approach to the Automatic Classification of Security-Relevant Commits (ICSME18, CCF-B)
