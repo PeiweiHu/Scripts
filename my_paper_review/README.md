@@ -93,9 +93,21 @@ navigation中一个节点就是一个状态，状态包括页面的状态（即�
 
 我对程序分析方法还不够了解，多看看相关的论文，比如值集分析和程序切片的。
 
+## 6. (State of) The Art of War: Offensive Techniques in Binary Analysis (S&P 16) - 2021/05/17
 
+这篇是Giovanni Vigna组的SoK，主要包括两个部分，一是当前二进制分析中的offensive tech，二是angr的设计。我着重看了第一部分，第二部分大致看了看。
 
-# git-related vulnerability discover
+首先文章介绍了自动化二进制分析中的trade-off，主要是replayability和semantic insight。关于replayability，如果replayability高了，代码覆盖率就会低；因为为了replayability就要理解如何到达某一位置，就影响覆盖更多的代码（存疑）。另一方面，如果不注重replayability，没有验证bug的输入，就容易有高的假阳性。关于semantic insight，注重语义的可能要存很多数据（如每个分支的值）。同时注重replayability和semantic insight的可扩展性又会收到影响。
+
+在静态漏洞发现部分，分为基于图的和基于数据的，首先介绍了控制流图恢复的问题（难点在于indirect jump和衡量代码覆盖情况）及评价标准（soundness和completeness）。然后介绍了基于图的漏洞发现（往往发现已有漏洞）和基于数据的漏洞发现（值集分析，over-approximate）。
+
+在动态漏洞发现部分，介绍了Dynamic Concrete Execution中的fuzzing和dynamic symbolic execution（Classical dynamic symbolic execution、Symbolic-assisted fuzzing、Under-constrained symbolic execution - 运行程序的一部分）。
+
+在漏洞利用部分，首先讲了造成崩溃的样例复现时的问题，缺少数据和缺少关系。然后讲了AEG，自动从崩溃产生漏洞利用。但是由于exp缓解措施的发展，最后讲了为了应对它们的Exploit Hardening。
+
+后面的部分是angr的设计，细节过多，暂时不研究它。
+
+# git-related vulnerability discovery
 
 ## A Practical Approach to the Automatic Classification of Security-Relevant Commits (ICSME18, CCF-B)
 
