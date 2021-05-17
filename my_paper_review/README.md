@@ -107,6 +107,26 @@ navigation中一个节点就是一个状态，状态包括页面的状态（即�
 
 后面的部分是angr的设计，细节过多，暂时不研究它。
 
+## 7. One Engine to Fuzz ’em All: Generic Language Processor Testing with Semantic Validation (S&P 21) - 2021/05/17
+
+Wenke Lee组的工作，认为现在对language processor（如编译器/解释器）的fuzzer都是一个语言有一个，这样太繁琐，每一个fuzzer工作量都挺大，一个语言的处理器出一个fuzzer何时了？于是，提出了一个通用的针对语言处理器的fuzzer-POLYGLOT。
+
+![](http://image.hupeiwei.com/paper/polyglot1.PNG)
+
+主要有两步：**第一步**根据提供的BNF产生一个能够把源程序转换成IR的前端，并设计了一个注解格式让用户提供语义，这些注解被编码在IR的语义属性中。**第二步**首先对第一步获得的IR进行**constrained mutation**，并保证整个程序的语法正确和未变异部分的语义正确。首先，基于IR的类型对IR进行变异（如用if替代if）；其次，只变异具有local effects的IRs。  接下来，还要保证变异部分的语义正确，通过**semantic validation**。该阶段根据IR的语义属性收集被变异case的type和scope信息，然后生成symbol tables，其中包含types、scopes和names of every definition。这些信息帮助修正无效的变量使用。
+
+生成的中间语言如下图最左，这个中间语言比较贴近于源文件，方便fuzz，和那种具有良好语义的自己可以编译运行的中间语言不同。下图中间是BNF，下图最右是注解，这两部分都要用户提供。
+
+![](http://image.hupeiwei.com/paper/polyglot2.PNG)
+
+下图是semantic validation中用到的数据结构，简明易懂。
+
+![](http://image.hupeiwei.com/paper/polyglot3.PNG)
+
+本文工作重点其实是如何生成良好的种子集，fuzz部分直接用的AFL逻辑。AFL能捕捉崩溃，但是语言处理器的错误可以是不造成崩溃的错误，比如运算出1+1=3，这种错误是捕捉不到的。
+
+现在顶会上fuzz的文章由对过程的优化向不同应用场景（固件、编译器等等）转变，估计是通用的过程优化的点实在不好找了。
+
 # git-related vulnerability discovery
 
 ## A Practical Approach to the Automatic Classification of Security-Relevant Commits (ICSME18, CCF-B)
