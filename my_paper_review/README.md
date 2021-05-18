@@ -127,6 +127,14 @@ Wenke Lee组的工作，认为现在对language processor（如编译器/解释�
 
 现在顶会上fuzz的文章由对过程的优化向不同应用场景（固件、编译器等等）转变，估计是通用的过程优化的点实在不好找了。
 
+## 8. Jetset: Targeted Firmware Rehosting for Embedded Systems (USENIX Security 21) - 2021/05/18
+
+这一篇文章试图通过建立硬件设备模型解决固件仿真的问题，特点是targeted，也就是用户指定代码位置，生成的硬件模型中包含的访问响应将运行路径导向该指定位置。
+
+整体的思路比较简洁，分为两个步骤，先是peripheral inference，然后是peripheral synthesis。第一个步骤将对MMIO的内存访问（即硬件设备访问）值设定为一个符号，使用符号执行技术记录相关分支的约束条件。至于往哪一个分支走，根据callback distance和callchain distance的和来确定。不有时候距离长的可能更有利于到达target，所以当某一位置访问多次时就根据distance的相反结果选取一次分支。第二个步骤使用第一步的结果创建一个适用于仿真器（如QEMU）的硬件模型。
+
+这篇文章的工作和*Automatic Firmware Emulation through Invalidity-guided Knowledge Inference*很像，它们也都是USENIX Security 21上的文章，核心思路都是把硬件访问当成符号，利用符号执行技术求解约束后，利用这一信息辅助之后的运行。但是它们选择运行路径的方式不同（或者说缓解路径爆炸问题的方式），这一篇是有一个target，根据到target的距离；另一篇是Invalidity-guided。
+
 # git-related vulnerability discovery
 
 ## A Practical Approach to the Automatic Classification of Security-Relevant Commits (ICSME18, CCF-B)
