@@ -135,6 +135,30 @@ Wenke Lee组的工作，认为现在对language processor（如编译器/解释�
 
 这篇文章的工作和*Automatic Firmware Emulation through Invalidity-guided Knowledge Inference*很像，它们也都是USENIX Security 21上的文章，核心思路都是把硬件访问当成符号，利用符号执行技术求解约束后，利用这一信息辅助之后的运行。但是它们选择运行路径的方式不同（或者说缓解路径爆炸问题的方式），这一篇是有一个target，根据到target的距离；另一篇是Invalidity-guided。
 
+## 9. Architectures for Intrusion Tolerant Database System (ACSAC 02) - 2021/05/18
+
+这篇文章的领域我不太懂，是入侵容忍检测课程选的论文，但是它的作者Peng Liu想必安全圈里的人都知道。这篇文章的意思是基于攻击预防的数据库系统不够用了，需要入侵容忍的，于是作者提出了5种架构的入侵容忍数据库系统，特点是聚焦于transaction-level。
+
+第一种架构如下图所示。重点就是入侵检测模块和修复管理模块（包括评估和修复）。入侵检测部分，作者提出算法要满足1. 应用的语义可以被捕获和使用 2. 多层的入侵检测。In [15], we have developed a simple cartridge like detector where bullets are supported through DLL modules and a rule based mechanism is used to build the cartridge。修复管理模块，评估要定位受影响的transaction，修复要把被影响的值恢复到最新的undamaged version。如果停止DBMS的运行修复的话挺简单，但是会影响业务运行，因此要repair on-the-fly。难免遇到1. 因为业务还在进行，要不断向前修复 2.在攻击修复阶段被修复的数据可能又被攻击3. 修复阶段可能一直不终止。解决1. 后修复的事务不会影响之前修复的2, we must not mistake a cleaned object as damaged, and we must not mistake a re-damaged object as already cleaned. To tackle challenge 3, our study in [2] shows that when the damage spreading speed is quicker than the repair speed, the repair may never terminate. Otherwise, the repair process will terminate, and under the following three conditions we can ensure that the repair terminates: (1) every malicious transaction is cleaned; (2) every identified damaged object is cleaned; (3) further (assessment) scans will not identify any new damage (if no new attack comes) 总的来说，架构1就是检测，定位，运行中修复。
+
+![](http://image.hupeiwei.com/paper/dbms1.PNG)
+
+第一种架构中malicious transaction从被commit到被检测到的时间间隔会影响很多transaction，因此第二种架构进行了改进，detector有两种级别的警报，疑似与恶意。恶意警报处理与架构1相同，疑似警报后将该用户的transaction隔离起来，若最后认为恶意，直接抛弃；否则merge。
+
+![](http://image.hupeiwei.com/paper/dbms2.PNG)
+
+第一种架构通过不允许读取被定位到受影响的数据来防止damage的扩展，但是数据从被commit到被定位到的时间间隔还会扩散damage。因此架构3使用multi-phase damage containment technique来进行缓解。思想就是宁肯误抓不可漏抓。因为漏抓的会传播，误抓的不会造成错误、传播。damage containment 快速 contain 可能由入侵造成damage的部分（防止扩散），uncontaning阶段再释放那些误抓的。
+
+![](http://image.hupeiwei.com/paper/dbms3.PNG)
+
+一个良好的入侵容忍系统能够根据环境的变化调整自己，第四种架构就引入了这一功能。前面架构的可信度、恢复能力可以根据参数定义（如界定疑似与恶意的threshold），本架构结合启发式算法对前面的功能参数进行调整，实现入侵容忍系统对环境的适应。
+
+![](http://image.hupeiwei.com/paper/dbms4.PNG)
+
+上面的第四种架构可以根据环境适应自己了，比如设置integrity level 0.92，就是10000个数据对象里面能有800个坏的，设置0.98就是能有200个坏的。但是，DBMS中不同的用户可能对integrity level有不同的要求，这样就得按照要求最高的用户设计系统，浪费了资源。因此，作者提出了面向用户提供QoIA（Quality of Information Assurance）Service，一种关联特定信息可信度的服务，不同用户信息可信度不同。
+
+![](http://image.hupeiwei.com/paper/dbms5.PNG)
+
 # git-related vulnerability discovery
 
 ## A Practical Approach to the Automatic Classification of Security-Relevant Commits (ICSME18, CCF-B)
