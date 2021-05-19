@@ -159,6 +159,28 @@ Wenke Lee组的工作，认为现在对language processor（如编译器/解释�
 
 ![](http://image.hupeiwei.com/paper/dbms5.PNG)
 
+## 10. How Far We Have Come: Testing Decompilation Correctness of C Decompilers (ISSTA 20) - 2021/05/19
+
+这是一篇survey性质的论文，调研了四个反编译器（JEB3、IDA Pro、RetDec、Radare2/Ghidra）的反编译效果。意在回答三个问题：RQ1: how difficult is it to recompile the outputs of modern C decompilers?; RQ2: what are the characteristics of typical decompilation defects?; and RQ3: what insights can we deduce from analyzing the decompilation defects?
+
+背景里介绍了常见**反编译器的流程**：1. 前端：把二进制反汇编，利用反汇编结果生成IR。2. 中端：根据IR，恢复变量、变量类型、控制流。可能有一些死代码消除、到达分析的优化。3. 后端：根据中端结果生成C。还有常用来寻找编译器缺陷的**Equivalence Modulo Inputs (EMI) Testing**。两个程序被定义为EMI，如果对于两个程序都合法的任何输入，输出是一样的。EMI Testing就是从代码文件A变异生成不影响运行路径的源代码文件B，看看这两个编译后运行结果是不是一样。如果不一样，说明编译器有问题。
+
+接着介绍了Motivation，大意是工业界已经有recompile成功的案例了，学术界依然保存保守态度，即使使用也是使用decompile的中间结果IR。反汇编、反编译技术[17,31,64-67]技术成熟了，也有平台[55]做能recompile的了。因此是时候做个测试了。分析IR而不是反编译的输出的话，1. 很多基础模块算法需要重新实现（如符号执行，现在的实现基于C而不是IR）2. 即使分析IR也会遇到反编译遇到的变量与类型恢复问题（分析IR并不省事）。In short，我们要decompile then recompile。
+
+![](http://image.hupeiwei.com/paper/howfar1.PNG)
+
+上图是测试的流程。源文件p，先变异生成q，然后把q编译、再反编译成q'，从q'中抽取函数替代p中相应的位置，再编译成可执行文件。最后，这个可执行文件的运行结果和p直接编译的结果进行比较。图中有三个关注的错误，decompilation failure（反编译器报错或崩溃）、recompilation failure（重编译时报错或崩溃）和decompilation defects（指两个可执行运行结果不一致）。
+
+最后测试结果如下：
+
+![](http://image.hupeiwei.com/paper/howfar2.PNG)
+
+最后回答三个问题：
+
+关于RQ1与RQ2 ，直接用输出结果重编译没有一例成功，实验中有一些重编译成功是因为程序简单且做了一些代码调整。RQ1与RQ2的问题作者分开说了，其实根源就是**type recovery、variable recovery、control-flow recovery、optimization**。至于RQ3，一是很多学术界新技术并没有集成到decompiler中，一是现有decompiler输出的重编译能力和可读性都不好，可能和注重生成结构紧凑的代码有关。
+
+记得看BAP时说自己第一代是二进制直接恢复成C，结果分析效果不好，因为缺少了汇编的side-affect（比如flag reg的变化），于是后面是恢复成IR，IR中编码了side-affect。但是本篇说IR不好，the transformed IR lacks high-level expressiveness, and this absence can impede many standard dataflow analyses and symbolic reasoning facilities [10]。目前我也不能给出自己的结论。此外，看完文章认为作者对于recompile还是过于乐观了，毕竟测试程序那么简单，实际用处不大；如果测试实际程序效果也不错，作者应该迫不及待给出实验结果了（如果我是作者的话，哈哈哈）。
+
 # git-related vulnerability discovery
 
 ## A Practical Approach to the Automatic Classification of Security-Relevant Commits (ICSME18, CCF-B)
