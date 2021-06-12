@@ -181,6 +181,86 @@ Wenke Lee组的工作，认为现在对language processor（如编译器/解释�
 
 记得看BAP时说自己第一代是二进制直接恢复成C，结果分析效果不好，因为缺少了汇编的side-affect（比如flag reg的变化），于是后面是恢复成IR，IR中编码了side-affect。但是本篇说IR不好，the transformed IR lacks high-level expressiveness, and this absence can impede many standard dataflow analyses and symbolic reasoning facilities [10]。目前我也不能给出自己的结论。此外，看完文章认为作者对于recompile还是过于乐观了，毕竟测试程序那么简单，实际用处不大；如果测试实际程序效果也不错，作者应该迫不及待给出实验结果了（如果我是作者的话，哈哈哈）。
 
+## 11. Countering Kernel Rootkits with Lightweight Hook Protection (CCS 09) - 2021/05/25
+
+由于内核rootkit的严重危害，越来越多的研究防范和发现rootkit。已有工作主要集中在以下几个方向：1. 分析rootkit的行为，如Panorama、HookFinder等，2. 通过被rootkit感染后的特征检测rootkit，如Copilot、SBCFI等，3. 阻止恶意rootkit代码的运行来保护内核代码的完整性，但是这种方式可以通过ret2plt/libc等攻击绕过。因此，作者认为，除了保护内核代码的完整性，还要通过保护内核控制数据来保护内核控制流的完整性，所谓内核控制数据是指能在内核运行种装入PC的数据，主要有函数返回地址和函数指针，本文工作重点在于保护函数指针。
+
+本文要保护的是函数指针（本文中function pointer和kernel hook含义相同），函数指针主要存储在两个部分，一是kernel和LKM的段中，一是动态分配的区域，如内核的堆。作者通过实验有两个观察：一是kernel hook分散地分布在不同的页上，这意味着基于页的硬件保护会错杀页上很多非kernel hook；二是对kernel hook的写操作很少，这与作者方案中分开处理读操作与写操作有联系。
+
+**总体架构**
+
+作者提出了一个基于hypervisor的轻量架构来保护客户机的kernel hook。作者方案主要包括两大部分，一是Offline Hook Profiler，一是Online Hook Protector。
+
+其中，Offline Hook Profiler的作用是收集kernel hook的访问信息。对于输入的每一个kernel hook，它输出一个hook access profile，其中包含了什么地址的什么指令对该kernel hook进行了什么类型的操作。这些访问kernel hook的指令被称作Hook Access Points（HAPs）。作者实现的HookSafe原型中使用QEMU的system-mode实现了HAP的分析。
+
+Online Hook Protector模块的功能是读入Offline Hook Profiler的输出，创建所有要保护的hook的影子备份（shadow copy）；然后将HAP指令进行插桩，这样运行至这些指令时对原来hook的访问就会被重定向到影子备份。当访问被重定向后，会根据访问的类型进行不同的操作，如果是读操作，直接从影子备份返回hook值；如果是写操作，由于内存保护的存在，只有hypervisor有权力更改影子备份的内存区域，因此会发起一个hypercall，交由hypervisor判断该写操作是否合法。原型HookSafe中的策略是该被写入的值需要是Offline Hook Profiler分析过程中出现过的值。
+
+Online Hook Protector中还有两个值得考虑的情况。一是如何发现并保护动态分配的hook（虽然在Offline Hook Profiler阶段输入了Kernel Hooks，并且也收集了动态分配的hook的信息，在实际运行中很多hook还是不能被这囊括的，因此需要在Online Hook Protector
+
+过程发现并保护动态分配的hook）。作者的方案是对涉及到的内存分配与释放函数进行插桩并利用运行时的上下文信息判断新分配的对象是否包含hook，如果是，就创建它的影子备份。另一个问题是如果在HookSafe启动前就分配了的hook怎么分析与保护。作者认为，一个包含hook的内核对象但凡被创建出来，就一定有一个关于它的引用能够访问到它，不然它被创建出来也不能使用。因此，作者采用分析全局变量的方法寻找包含hook的内核对象。
+
+**技术方案**
+
+实现部分值得一提的是如何通过对HAP处进行补丁，实现hook indirection的。对于HAP指令，通过将其指令位置重写为jmp到trampoline位置的指令来实现跳转，这个跳转指令占5个字节。若HAP指令多于5字节，空余的位置填充NOP；若HAP指令小于5字节，则也重写下一条指令，然后下一条指令在从trampoline返回前执行。这样看上去是可行的，但是会遇到两个问题，一是两条HAP指令离得太近，补丁第一条时破坏了第二条；二是被重写的下一条指令可能是一个跳转指令的目标，这样直接跳过了执行会产生异常。作者的解决办法是复制原来的旧函数来产生一个新函数，并且补丁新函数的HAP，HAP空间小于5字节时，HAP后的指令不重写，而是后移。然后，在旧函数的入口处补丁为跳转到新函数的指令。这样，从头执行函数的去执行新函数了，跳转过来的能够执行原来的完整指令。
+
+**优缺点**
+
+1. 在offline hook profiler阶段需要提供kernel hooks作为输入，收集kernel hooks的工作并不简单，尤其是实验中第二个集合里的kernel hooks来自手动分析。
+2. hypervisor认为某一kernel hook在offline hook profiler中出现过的值是可以合法写入的，这意味着如果在offline hook profiler阶段混入恶意值，HookSafe会在online hook protector阶段将恶意的值合法写入。
+3. hypervisor认为某一kernel hook在offline hook profiler中出现过的值是可以合法写入的，那么如何保证offline hook profiler阶段的动态运行是充分的，收集到了所有的合法值？实际也有可能一个没出现过的值也是合法的。文章对写入hook的判断依据对实际应用是否会产生限制，能产生多少限制没有讨论。
+
+## 12. Threshold-Optimal DSA/ECDSA Signatures and an Application to Bitcoin Wallet Security - 2021/05/30
+
+课程读书报告要求的论文，我对这个领域并不懂，论文也没有看太懂，为了交作业必须得写。
+
+**作者所提方案过程的理解：**该方案共分为三个阶段，初始化阶段、密钥生成协议和签名生成阶段。初始化阶段生成用于陷门承诺和DSA的一些参数。在密钥生成阶段，首先每一个参与者选择x，并计算y=gx，然后将计算出的y当作陷门承诺的信息计算[C，D]=Com(y)。然后，每一个参与者广播自己的C。根据作者的介绍，陷门承诺的一个特性是对于持有陷门（trapdoor）的人，当它发送出去C后，可以重新计算一个D’，使得当初C和D加密的信息M变为C和D’加密的信息M’。这就像将一个物品锁到密码箱并给了别人后，通过给别人不同的开箱密码，别人会看到密码箱中不同的物品。参与者广播自己的C后，在它广播自己的D前，这个被加密的y都是不确定的、无法破解的。在广播C后，每个参与者再广播D和α=E(x)。每个参与者根据别人广播的D，可以计算出别人的y，然后把每个人的y乘在一起得到一个新的y。每个参与者将别人广播的α累加起来，由于同态加密的性质，α1+α2+…=E(x1+x2+…)，最终得到一个新的α=E(x1+x2+…)。这样，密钥生成阶段最终的输出就是结合了每个人的值的y和α=E(x)，且有y=gx（因为同底幂相乘等于指数相加）。这里的两个输出，和要签名信息的哈希值，是第三步签名生成阶段的输入。
+
+**方案的保密性：**首先，无论是第二阶段还是第三阶段，消息的广播都依赖了陷门承诺方案。广播是有延迟的，使用陷门承诺先发送C，再发送D；在解密者收到D前，密文是什么是不确定的。D和C之间的时间，是通过陷门承诺方案额外争取到的安全时间。其次，虽然签名需要进行一些计算，但是这些计算都拥有同态加密方案的保护，被广播的私钥辅助计算部分是同态加密后的，这样也在不影响计算的前提下增强了保密性。
+
+**方案的可用性：**这篇文章如果实现t+1的话，其实是要求坏人不作恶。也就是说，坏人能够看到传递的消息，但是不能修改应作出的行为。并且，正如论文所说：we assume that if any player does not perform according to the protocol (e.g. by failing a ZK proof, or refusing to open a committed value), then the protocol aborts and stops。如果出现了不按照协议规则进行的参与者，整个过程直接终止，这意味着它鲁棒性不够强。
+
+**文章的创新性或相关工作的理解：**我对相关领域背景知识不太了解，就这篇论文来说，它的创新点就是结合同态加密，将DSA签名方案扩展到了门限最优，比已有DSA门限方案对参与者要求更低，这样DSA签名可以适用于多方共同签名的场景。这里说对参与者要求更低，其实是从数量上来说的；但是作者提出的方案要求坏人不作恶，所以对参与者数量要求更低，但是行为要求更高了。在提出本文的DSA门限方案后，作者又提出了一个应用场景—对比特币钱包的保护，说明了本方案的实用性。
+
+## 13. Decompilation of Binary Programs (SPE 1995) - 2021/06/02
+
+提出了反编译中的一些问题：1. 数据与代码无法区分。2. 由于编译器和链接器导入的很多子函数。
+
+反编译器的结构：
+
+前端（机器相关）：读入二进制，输出low ir 和CFG。
+1. indexed or indirect addressing mode
+2. two levels of ir
+3. idiom analysis - 组合的指令序列用功能等价的ir替换
+4. type propagation - 在idiom analysis之后，将引用归并
+
+universal decompiling machine：
+1. 数据流分析 
+    1.1 对分支判断进行合成，如cmp和b.ge合并成 x >= y
+    1.2 对寄存器的处理，没看太懂
+2. 控制流分析 - 把CFG结构变成高级语言的控制结构，包含一个chehck for short circuit evaluation grphs，能组合分支判断条件。
+
+后端（语言相关）：读入前一阶段输出的结构化的CFG和高级IR，先进行restructure（指对于一些CFG结构生成输出高级语言特有的结构），然后生成高级语言代码。
+
+还有一个函数签名生成判断部分来识别那些编译器和链接器自动加入的函数，解决子函数过多的问题。
+
+## 14. DIRE: A Neural Approach to Decompiled Identifier Naming (ASE 19) - 2021/06/12
+
+这篇文章的主要工作是使用神经网络对反编译后代码的变量进行命名。我个人认为这是很有意义的一项工作，尤其是看着ida反编译后代码中类似var1、var2的变量时。
+
+本文所提框架如下图所示，主要包括encode和decoder两个部分，encoder部分使用lexical encoder（一个双向LSTM网络）分析代码序列，使用structural encoder分析ast获取结构信息。encoder输出两个东西，一是coder element representation（对于lexical encoder就是代码中的词，对于structural encoder就是ast中的节点），一是identifier representation（待命名变量）。decoder读入encoder的输出，预测待命名变量的名字。decoder使用了LSTM decoder和注意力机制。
+
+![](http://image.hupeiwei.com/paper/dire1.PNG)
+
+本文的贡献除了上述的DIRE框架，还有一个自动化生成训练数据的方法。其实里面比较值得注意的就是不同的反编译场景可能生成不同的代码结构，如何将不同代码结构下的变量对应起来（训练模型的数据有这个需求）。反编译的结果虽然不一样，但是反汇编的结果相对可靠，作者采用的方法是通过记录某一反编译后的变量在反汇编代码中被指令访问的位置，相同的访问位置集合意味着相同的变量。这个方法确实不错。
+
+作者介绍自动生成训练数据的方法时，有一步是使用（修改后的）ast指导反编译器产生反编译代码（we instruct the decompiler to generate decompiled C code from the modified AST），我不懂怎么做的。
+
+实验结果简示如下图：
+
+![](http://image.hupeiwei.com/paper/dire2.PNG)
+
+##　ａ
+
 # git-related vulnerability discovery
 
 ## A Practical Approach to the Automatic Classification of Security-Relevant Commits (ICSME18, CCF-B)
