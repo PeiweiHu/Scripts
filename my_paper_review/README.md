@@ -259,7 +259,17 @@ universal decompiling machine：
 
 ![](http://image.hupeiwei.com/paper/dire2.PNG)
 
-##　ａ
+##　15. Debin: Predicting Debug Information in Stripped Binaries (CCS 18) - 2021/06/13
+
+这篇文章的工作是从stripped binary中进行变量的类型与命名恢复，流程如下图所示。首先将反汇编的代码提升至BAP-IR，然后通过**极限树**模型将BAP-IR中的元素划分为unknown和known两部分。unknow是需要进行类型与命名恢复的变量。接下来，根据BAP-IR构建无向依赖图；再根据**条件随机场模型**对依赖图中边连接的节点进行预测。最后，将预测结果输出。
+
+![](http://image.hupeiwei.com/paper/debin1.PNG)
+
+## 16. Meaningful Variable Names for Decompiled Code: A Machine Translation Approach (ICPC 18) - 2021/06/13
+
+这篇文章的作者和序号14的文章是同一个团队，是先发的这一篇，又在ASE 19上发的那一篇。确实能明显感觉到DIRE比这篇的进步。其实本文的思路比较简洁，就是**利用statistical machine translation（SMT）的技术（这是一种不同语言间相互翻译的技术，比如英语与法语），把没有重命名的decompiled output和命好名的decompiled output看成两种语言，来把前者翻译成后者**，文章中的方法对没有对现有的模型进行什么修改。本文重点描述了训练模型前生成训练数据的问题。训练SMT的模型需要parallel corpus，在本问题中就是两个decompiled output，其中一个是renamed。下图展示了生成数据库的过程，重点是align过程（就是把源代码中变量的名字赋给decompiled output中变量的过程）。文中提出了A、B、C三个方法，A将align看出assignment problem，B和C看成sequence alignment problem。不过DIRE中提出了一个更巧妙的方法。
+
+![](http://image.hupeiwei.com/paper/de1.PNG)
 
 # git-related vulnerability discovery
 
