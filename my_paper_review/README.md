@@ -271,6 +271,14 @@ universal decompiling machine：
 
 ![](http://image.hupeiwei.com/paper/de1.PNG)
 
+## 17. Recovering Clear, Natural Identifiers from Obfuscated JS Names (ESEC/FSE 17) - 2021/06/14
+
+这篇文章和序号16、14的文章为同一个团队，这篇是最早的一篇。它们的顺序是17年用SMT做js代码的反混淆，18年用SMT做反编译代码变量命名，19年用双向LSTM和GGNN做反编译代码变量命名。
+
+文章的思路比较简洁，使用现有的SMT引擎Moses，构建包含未混淆及混淆后代码的align corpus进行模型训练，然后使用训练后的模型对混淆后的代码进行预测命名。但是Moses毕竟是对自然语言进行处理的引擎，和代码还是有所不同的，作者提出了两个挑战。一是inconsistency，不一致性。对自然语言的处理每一句之间是独立的，但是程序中不同句中可能有相同的标识符，不能把它们翻译成不一样的东西了。二是ambiguity，含糊不清。意思是混淆器会在不同作用域产生相同的标识符（如function t(t, n)），如果引擎也把它们翻译成一样的了，那不符合命名易读性的要求。
+
+对于不一致性，作者虽然介绍了几个算法，但是和解决这个问题没有太大关系，而是怎么选的引擎给出的备选名。而防止同一变量命不同的名字的办法，看字里行间的意思是就是按照算法描述的顺序给一个变量命好名后，在同一个作用域内所有该变量都采用这个名字。对于第二个问题，预测时手动把输入中造成的ambiguity的变量改一改名字；生成训练集训练时，是根据位置对不同作用域重名的变量进行了重命名（hash renaming）。
+
 # git-related vulnerability discovery
 
 ## A Practical Approach to the Automatic Classification of Security-Relevant Commits (ICSME18, CCF-B)
