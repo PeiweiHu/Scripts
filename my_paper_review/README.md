@@ -279,6 +279,10 @@ universal decompiling machine：
 
 对于不一致性，作者虽然介绍了几个算法，但是和解决这个问题没有太大关系，而是怎么选的引擎给出的备选名。而防止同一变量命不同的名字的办法，看字里行间的意思是就是按照算法描述的顺序给一个变量命好名后，在同一个作用域内所有该变量都采用这个名字。对于第二个问题，预测时手动把输入中造成的ambiguity的变量改一改名字；生成训练集训练时，是根据位置对不同作用域重名的变量进行了重命名（hash renaming）。
 
+## 18. Statistical Deobfuscation of Android Applications (CCS 16) - 2021/06/14
+
+这篇文章和序号15的Debin是同一个团队，用的方法也一样，只是本文是解决反混淆，Debin是反编译代码变量命名。有趣的是，CMU的那个团队也是先做了反混淆，然后用同样的技术做反编译代码命名。本篇大致看了看，不具体写了。
+
 # git-related vulnerability discovery
 
 ## A Practical Approach to the Automatic Classification of Security-Relevant Commits (ICSME18, CCF-B)
