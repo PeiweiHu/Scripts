@@ -283,6 +283,52 @@ universal decompiling machine：
 
 这篇文章和序号15的Debin是同一个团队，用的方法也一样，只是本文是解决反混淆，Debin是反编译代码变量命名。有趣的是，CMU的那个团队也是先做了反混淆，然后用同样的技术做反编译代码命名。本篇大致看了看，不具体写了。
 
+## 19. FUMVar: A Practical Framework for Generating Fully-working and Unseen Malware Variants (SAC 21) - 2021/06/25
+
+这篇文章的工作是生成恶意软件的变种来躲避检测，工作比较简单，发在了C类会议上。
+
+![](http://image.hupeiwei.com/paper/fumvar.PNG)
+
+框架的流程如上图所示。Parser解析输入的malware。modifier部分采用遗传算法对样例集不断地添加扰动，扰动类型如下图所示。verifier部分通过cuckoo sandbox验证生成的文件还是不是个正确的PE文件，validator验证生成的文件是不是还保证了原来的功能，主要通过比对API调用序列和签名（如网络请求）的相似性，相似性高说明保证了原来的功能。scorer通过virus total和代码相似性对生成的文件进行评分，越不容易被vt检测出、和原来代码越不相似越好。
+
+![](http://image.hupeiwei.com/paper/fumvar1.PNG)
+
+问题：validator在判断是否维持了原来的功能时使用了api调用序列和签名，如果检测器就是根据这个进行检测，那岂不是正撞在枪口上？
+
+## 20. AIMED: Evolving Malware with Genetic Programming to Evade Detection (TrustCom 19) - 2021/06/25
+
+本篇文章也是生成恶意软件变种来躲避检测，FUMVar可以看做是本篇文章的改进，这篇也是发在了C类会议上。虽然AIMED和FUMVar一个使用了遗传编程（GP，Genetic Programming），一个使用了遗传算法（GA，Genetic Algorithm），我觉得它们思路几乎没有区别。唯一不同的是FUMVar加了一个对功能性的验证（validator部分）。需要注意的是，本篇明确说了自己要躲避的是静态检测器，这也回答了看上一篇时的问题。
+
+## 21. Learning to Evade Static PE Machine Learning Malware Models via Reinforcement Learning (2018) - 2021/06/26
+
+这篇文章的源头在black hat 2017，是使用强化学习的方法来躲避静态的恶意软件分类模型。enviroment如下：
+
+![](http://image.hupeiwei.com/paper/rf1.PNG)
+
+
+
+action如下：
+
+![](http://image.hupeiwei.com/paper/rf2.PNG)
+
+## 22. AMVG: Adaptive Malware Variant Generation Framework Using Machine Learning (PRDC 19) - 2021/06/26
+
+这个和AIMED、FUMVar的主要区别是目标是有源码的恶意软件，因此修改操作是从源码进行的，AIMED与FUMVar是从二进制层面进行的。其它没什么太大区别。看到这里的四篇与恶意软件变体相关的文章（19、20、21、22）主要分为两个大的类，一是遗传编程/遗传算法相关，一是强化学习相关。但它们的共同点是只能骗过静态的扫描器，因为它们的修改都无关痛痒，不能真正修改恶意软件的动态特征，而动态特征却被防火墙广泛运用到恶意软件识别上。
+
+## 23. Automatically Evading Classifiers (NDSS 16) - 2021/06/26
+
+这篇文章的工作是使用遗传编程衍生出逃避恶意pdf扫描器的pdf文件。看了这几篇遗传编程/遗传算法、逃避检测相关的文章，发现主要的两个关键步骤就是定义修改目标文件的操作、定义遗传筛选过程中关键的评分函数。我觉得它们的逃避工作都没有解决我在22中提出的问题，就是如何隐藏动态特征。但是这个动态特征好像确实不好隐藏，在不改变C2的情况下，网络请求都是固定的，防火墙直接写死不允许这种请求，那就没辙了。不过任务是检测防火墙的话，可以假设C2改变了？如果一个服务器地址改变，防火墙就查不出来了，说明是防火墙不够鲁棒。问题是如何去修改恶意程序中涉及动态特征的部分，而且还能使程序正常运行。
+
+## 24. Evading Web Application Firewalls with Reinforcement Learning () - 2021/06/28
+
+利用强化学习生成绕过web防火墙的攻击向量，state如下：
+
+![](http://image.hupeiwei.com/paper/webrf1.PNG)
+
+action如下：
+
+![](http://image.hupeiwei.com/paper/webrf2.PNG)
+
 # git-related vulnerability discovery
 
 ## A Practical Approach to the Automatic Classification of Security-Relevant Commits (ICSME18, CCF-B)
