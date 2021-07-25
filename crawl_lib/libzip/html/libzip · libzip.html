@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)https://libzip.org/documentation/libzip.html -->
+<html lang="en-us"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      libzip · libzip
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./libzip · libzip_files/main.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://libzip.org/favicon.png">
+<link rel="shortcut icon" href="https://libzip.org/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://libzip.org/feed.xml">
+
+  <!-- Additional head bits without overriding original head -->
+</head>
+<body class="page"><div id="sidebar">
+    <div class="stretch"></div>
+  <input type="checkbox" id="hamburger-button">
+  <header>
+   <div class="title-line">
+    <h1 class="site-title"><a href="https://libzip.org/">libzip</a></h1>
+    <div class="hamburger-icon">
+        <label for="hamburger-button"><span class="open"></span><span class="close"></span></label>
+    </div>
+   </div>
+   <p class="lead">A C library for reading, creating, and modifying zip archives.
+</p><p class="site-version">Current version is 1.8.0</p></header><nav id="sidebar-nav-links">
+    <ul><a href="https://libzip.org/download/"><li class="page-link">Download</li></a><a href="https://libzip.org/documentation/"><li class="page-link">Documentation</li></a><a href="https://libzip.org/news/"><li class="page-link">News</li></a><a href="https://libzip.org/license/"><li class="page-link">License</li></a><a href="https://github.com/nih-at/libzip/"><li class="page-link">Repository</li></a><a href="https://libzip.org/libzip-discuss/"><li class="page-link">List Archive</li></a><a href="https://libzip.org/specifications/"><li class="page-link">Specifications</li></a><a href="https://libzip.org/users/"><li class="page-link">Projects Using libzip</li></a><a href="https://libzip.org/packages/"><li class="page-link">Packages</li></a><a href="https://libzip.org/contact/"><li class="page-link">Contact</li></a></ul>
+</nav>
+<nav id="sidebar-icon-links">
+    <ul><a id="github-link" class="icon" title="Github Project" aria-label="Github Project" href="https://github.com/nih-at/libzip">
+      <li><svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 28"><path d="M12 2c6.625 0 12 5.375 12 12 0 5.297-3.437 9.797-8.203 11.391-0.609 0.109-0.828-0.266-0.828-0.578 0-0.391 0.016-1.687 0.016-3.297 0-1.125-0.375-1.844-0.812-2.219 2.672-0.297 5.484-1.313 5.484-5.922 0-1.313-0.469-2.375-1.234-3.219 0.125-0.313 0.531-1.531-0.125-3.187-1-0.313-3.297 1.234-3.297 1.234-0.953-0.266-1.984-0.406-3-0.406s-2.047 0.141-3 0.406c0 0-2.297-1.547-3.297-1.234-0.656 1.656-0.25 2.875-0.125 3.187-0.766 0.844-1.234 1.906-1.234 3.219 0 4.594 2.797 5.625 5.469 5.922-0.344 0.313-0.656 0.844-0.766 1.609-0.688 0.313-2.438 0.844-3.484-1-0.656-1.141-1.844-1.234-1.844-1.234-1.172-0.016-0.078 0.734-0.078 0.734 0.781 0.359 1.328 1.75 1.328 1.75 0.703 2.141 4.047 1.422 4.047 1.422 0 1 0.016 1.937 0.016 2.234 0 0.313-0.219 0.688-0.828 0.578-4.766-1.594-8.203-6.094-8.203-11.391 0-6.625 5.375-12 12-12zM4.547 19.234c0.031-0.063-0.016-0.141-0.109-0.187-0.094-0.031-0.172-0.016-0.203 0.031-0.031 0.063 0.016 0.141 0.109 0.187 0.078 0.047 0.172 0.031 0.203-0.031zM5.031 19.766c0.063-0.047 0.047-0.156-0.031-0.25-0.078-0.078-0.187-0.109-0.25-0.047-0.063 0.047-0.047 0.156 0.031 0.25 0.078 0.078 0.187 0.109 0.25 0.047zM5.5 20.469c0.078-0.063 0.078-0.187 0-0.297-0.063-0.109-0.187-0.156-0.266-0.094-0.078 0.047-0.078 0.172 0 0.281s0.203 0.156 0.266 0.109zM6.156 21.125c0.063-0.063 0.031-0.203-0.063-0.297-0.109-0.109-0.25-0.125-0.313-0.047-0.078 0.063-0.047 0.203 0.063 0.297 0.109 0.109 0.25 0.125 0.313 0.047zM7.047 21.516c0.031-0.094-0.063-0.203-0.203-0.25-0.125-0.031-0.266 0.016-0.297 0.109s0.063 0.203 0.203 0.234c0.125 0.047 0.266 0 0.297-0.094zM8.031 21.594c0-0.109-0.125-0.187-0.266-0.172-0.141 0-0.25 0.078-0.25 0.172 0 0.109 0.109 0.187 0.266 0.172 0.141 0 0.25-0.078 0.25-0.172zM8.937 21.438c-0.016-0.094-0.141-0.156-0.281-0.141-0.141 0.031-0.234 0.125-0.219 0.234 0.016 0.094 0.141 0.156 0.281 0.125s0.234-0.125 0.219-0.219z"></path>
+</svg>
+</li>
+    </a>
+  
+  
+    <a id="github-download-link" class="icon" title="Download" aria-label="Download" href="https://libzip.org/download/libzip-1.8.0.tar.gz">
+      <li><svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path>
+    <path d="M0 0h24v24H0z" fill="none"></path>
+</svg></li>
+    </a>
+  
+  <a id="subscribe-link" class="icon" title="Subscribe" aria-label="Subscribe" href="https://libzip.org/feed.xml">
+    <li><svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"></path>
+    <circle cx="6.18" cy="17.82" r="2.18"></circle>
+    <path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"></path>
+</svg></li>
+  </a></ul>
+</nav>
+<p class="copyright">© 2021 by Dieter Baron and Thomas Klausner.</p>
+</div>
+<main class="container">
+<h1 class="page-title">libzip</h1>
+<div class="manual-text">
+<section class="Sh">
+<h1 class="Sh" id="NAME"><a class="permalink" href="https://libzip.org/documentation/libzip.html#NAME">NAME</a></h1>
+<code class="Nm">libzip</code> —
+<div class="Nd">library for manipulating zip archives</div>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="LIBRARY"><a class="permalink" href="https://libzip.org/documentation/libzip.html#LIBRARY">LIBRARY</a></h1>
+libzip (-lzip)
+</section>
+<section class="Sh">
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="https://libzip.org/documentation/libzip.html#SYNOPSIS">SYNOPSIS</a></h1>
+<code class="In">#include &lt;<a class="In">zip.h</a>&gt;</code>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="https://libzip.org/documentation/libzip.html#DESCRIPTION">DESCRIPTION</a></h1>
+<code class="Nm">libzip</code> is a library for reading, creating, and modifying
+  zip archives.
+<p class="Pp">The main design criteria for <code class="Nm">libzip</code>
+  were:</p>
+<ul class="Bl-bullet Bl-compact">
+  <li>Do not create corrupt files, even in case of errors.</li>
+  <li>Do not delete data.</li>
+  <li>Be efficient.</li>
+</ul>
+<p class="Pp">For this reason, when modifying zip archives,
+    <code class="Nm">libzip</code> writes to a temporary file and replaces the
+    original zip archive atomically.</p>
+<p class="Pp">Below there are two sections listing functions: one for how to
+    read from zip archives and one for how to create/modify them.</p>
+<section class="Ss">
+<h2 class="Ss" id="THREAD_SAFETY"><a class="permalink" href="https://libzip.org/documentation/libzip.html#THREAD_SAFETY">THREAD
+  SAFETY</a></h2>
+In general, different zip archives opened by <code class="Nm">libzip</code> are
+  independent of each other and can be used by parallel-running threads without
+  locking. If you want to use an archive from multiple threads, you have to
+  synchronize access to it yourself. If you use an archive as a source for
+  <a class="Xr" href="https://libzip.org/documentation/zip_file_add.html">zip_file_add(3)</a> or
+  <a class="Xr" href="https://libzip.org/documentation/zip_file_replace.html">zip_file_replace(3)</a>, access to
+  the target archive must be synchronized with access to the source archive as
+  well.
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="READING_ZIP_ARCHIVES"><a class="permalink" href="https://libzip.org/documentation/libzip.html#READING_ZIP_ARCHIVES">READING
+  ZIP ARCHIVES</a></h1>
+<section class="Ss">
+<h2 class="Ss" id="open_archive"><a class="permalink" href="https://libzip.org/documentation/libzip.html#open_archive">open
+  archive</a></h2>
+<ul class="Bl-bullet Bl-compact">
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_open.html">zip_open(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_fdopen.html">zip_fdopen(3)</a></li>
+</ul>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="find_files"><a class="permalink" href="https://libzip.org/documentation/libzip.html#find_files">find
+  files</a></h2>
+<ul class="Bl-bullet Bl-compact">
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_name_locate.html">zip_name_locate(3)</a></li>
+</ul>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="read_files"><a class="permalink" href="https://libzip.org/documentation/libzip.html#read_files">read
+  files</a></h2>
+<ul class="Bl-bullet Bl-compact">
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_fopen.html">zip_fopen(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_fopen_encrypted.html">zip_fopen_encrypted(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_fopen_index.html">zip_fopen_index(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_fopen_index_encrypted.html">zip_fopen_index_encrypted(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_fread.html">zip_fread(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_fseek.html">zip_fseek(3)</a> (uncompressed files
+      only)</li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_ftell.html">zip_ftell(3)</a> (uncompressed files
+      only)</li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_fclose.html">zip_fclose(3)</a></li>
+</ul>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="close_archive"><a class="permalink" href="https://libzip.org/documentation/libzip.html#close_archive">close
+  archive</a></h2>
+<ul class="Bl-bullet Bl-compact">
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_close.html">zip_close(3)</a></li>
+</ul>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="miscellaneous"><a class="permalink" href="https://libzip.org/documentation/libzip.html#miscellaneous">miscellaneous</a></h2>
+<ul class="Bl-bullet Bl-compact">
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_stat.html">zip_stat(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_compression_method_supported.html">zip_compression_method_supported(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_encryption_method_supported.html">zip_encryption_method_supported(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_file_get_comment.html">zip_file_get_comment(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_file_get_external_attributes.html">zip_file_get_external_attributes(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_get_archive_comment.html">zip_get_archive_comment(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_get_archive_flag.html">zip_get_archive_flag(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_get_name.html">zip_get_name(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_get_num_entries.html">zip_get_num_entries(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_set_default_password.html">zip_set_default_password(3)</a></li>
+</ul>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="CREATING/MODIFYING_ZIP_ARCHIVES"><a class="permalink" href="https://libzip.org/documentation/libzip.html#CREATING/MODIFYING_ZIP_ARCHIVES">CREATING/MODIFYING
+  ZIP ARCHIVES</a></h1>
+<section class="Ss">
+<h2 class="Ss" id="create/open_archive"><a class="permalink" href="https://libzip.org/documentation/libzip.html#create/open_archive">create/open
+  archive</a></h2>
+<ul class="Bl-bullet Bl-compact">
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_open.html">zip_open(3)</a></li>
+</ul>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="add/change_files_and_directories"><a class="permalink" href="https://libzip.org/documentation/libzip.html#add/change_files_and_directories">add/change
+  files and directories</a></h2>
+<ul class="Bl-bullet Bl-compact">
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_dir_add.html">zip_dir_add(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_file_add.html">zip_file_add(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_file_replace.html">zip_file_replace(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_file_set_comment.html">zip_file_set_comment(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_file_set_dostime.html">zip_file_set_dostime(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_file_set_external_attributes.html">zip_file_set_external_attributes(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_file_set_encryption.html">zip_file_set_encryption(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_file_set_mtime.html">zip_file_set_mtime(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_set_file_compression.html">zip_set_file_compression(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_source_buffer.html">zip_source_buffer(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_source_file.html">zip_source_file(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_source_filep.html">zip_source_filep(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_source_free.html">zip_source_free(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_source_function.html">zip_source_function(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_source_zip.html">zip_source_zip(3)</a></li>
+</ul>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="rename_files"><a class="permalink" href="https://libzip.org/documentation/libzip.html#rename_files">rename
+  files</a></h2>
+<ul class="Bl-bullet Bl-compact">
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_rename.html">zip_rename(3)</a></li>
+</ul>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="delete_files"><a class="permalink" href="https://libzip.org/documentation/libzip.html#delete_files">delete
+  files</a></h2>
+<ul class="Bl-bullet Bl-compact">
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_delete.html">zip_delete(3)</a></li>
+</ul>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="revert_changes"><a class="permalink" href="https://libzip.org/documentation/libzip.html#revert_changes">revert
+  changes</a></h2>
+<ul class="Bl-bullet Bl-compact">
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_unchange.html">zip_unchange(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_unchange_all.html">zip_unchange_all(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_unchange_archive.html">zip_unchange_archive(3)</a></li>
+</ul>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="read/modify_extra_fields"><a class="permalink" href="https://libzip.org/documentation/libzip.html#read/modify_extra_fields">read/modify
+  extra fields</a></h2>
+<ul class="Bl-bullet Bl-compact">
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_file_extra_field_by_id.html">zip_file_extra_field_by_id(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_file_extra_field_delete.html">zip_file_extra_field_delete(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_file_extra_field_delete_by_id.html">zip_file_extra_field_delete_by_id(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_file_extra_field_get.html">zip_file_extra_field_get(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_file_extra_field_set.html">zip_file_extra_field_set(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_file_extra_fields_count.html">zip_file_extra_fields_count(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_file_extra_fields_count_by_id.html">zip_file_extra_fields_count_by_id(3)</a></li>
+</ul>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="close_archive_(writing)"><a class="permalink" href="https://libzip.org/documentation/libzip.html#close_archive_(writing)">close
+  archive (writing)</a></h2>
+<ul class="Bl-bullet Bl-compact">
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_close.html">zip_close(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_discard.html">zip_discard(3)</a></li>
+</ul>
+</section>
+<section class="Ss">
+<h2 class="Ss" id="miscellaneous_(writing)"><a class="permalink" href="https://libzip.org/documentation/libzip.html#miscellaneous_(writing)">miscellaneous
+  (writing)</a></h2>
+<ul class="Bl-bullet Bl-compact">
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_file_attributes_init.html">zip_file_attributes_init(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_libzip_version.html">zip_libzip_version(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_register_cancel_callback_with_state.html">zip_register_cancel_callback_with_state(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_register_progress_callback_with_state.html">zip_register_progress_callback_with_state(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_set_archive_comment.html">zip_set_archive_comment(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_set_archive_flag.html">zip_set_archive_flag(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_source.html">zip_source(3)</a></li>
+</ul>
+</section>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="ERROR_HANDLING"><a class="permalink" href="https://libzip.org/documentation/libzip.html#ERROR_HANDLING">ERROR
+  HANDLING</a></h1>
+<ul class="Bl-bullet Bl-compact">
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_error_strerror.html">zip_error_strerror(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_strerror.html">zip_strerror(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_file_strerror.html">zip_file_strerror(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_file_get_error.html">zip_file_get_error(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_get_error.html">zip_get_error(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_error_init_with_code.html">zip_error_init_with_code(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_error_system_type.html">zip_error_system_type(3)</a></li>
+  <li><a class="Xr" href="https://libzip.org/documentation/zip_errors.html">zip_errors(3)</a></li>
+</ul>
+</section>
+<section class="Sh">
+<h1 class="Sh" id="AUTHORS"><a class="permalink" href="https://libzip.org/documentation/libzip.html#AUTHORS">AUTHORS</a></h1>
+<span class="An">Dieter Baron</span>
+  &lt;<a class="Mt" href="mailto:dillo@nih.at">dillo@nih.at</a>&gt; and
+  <span class="An">Thomas Klausner</span>
+  &lt;<a class="Mt" href="mailto:tk@giga.or.at">tk@giga.or.at</a>&gt;
+</section>
+</div>
+
+
+</main><!-- Optional footer content -->
+
+
+</body></html>
